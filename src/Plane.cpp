@@ -1,4 +1,7 @@
 #include "gssmraytracer/geometry/Plane.h"
+#include "gssmraytracer/math/Transform.h"
+
+using namespace gssmraytracer::geometry;
 
 class Plane::Impl {
 public:
@@ -6,17 +9,17 @@ public:
   geometry::Point point;
 };
 
-Plane::Plane() : mImpl(new Impl){
-  mImpl->normal = new Vector();
-  mImpl->point = new Point();
+Plane::Plane() : Shape(math::Transform()), mImpl(new Impl){
+  mImpl->normal = math::Vector();
+  mImpl->point = geometry::Point();
 }
 
-Plane::Plane(const geometry::Point &pt, const math::Vector &norm) : mImpl(new Impl) {
+Plane::Plane(const geometry::Point &pt, const math::Vector &norm) : Shape(math::Transform()), mImpl(new Impl) {
   mImpl->normal = norm;
   mImpl->point = pt;
 }
 
-bool Plane::Plane(const utils::Ray &ws_ray, float &tHit) const {
+bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
   return true;
 }
 

@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 
     Transform transform1, transform2;
     Vector position(0.0,0.0,0.0);
-    Vector position2(15.,0.0,0.0);
+    Vector position2(15.,10.0,0.0);
     transform1.translate(position);
     transform2.translate(position2);
 
@@ -157,8 +157,7 @@ int main(int argc, char* argv[]) {
 
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
-        Color color;
-        int misses = 0;
+        Color color(0,0,0,0);
         for(int samp = 0; samp < samp_size; ++samp) {
            float epsilon = ((float) rand() / (RAND_MAX));
            float delta = ((float) rand() / (RAND_MAX));
@@ -169,23 +168,18 @@ int main(int argc, char* argv[]) {
     	     std::shared_ptr<DifferentialGeometry> dg;
 
     	     if(scene.hit(ray, t, dg, p)) {
-    		       color = p->shade(dg);
+    		       color = color + p->shade(dg);
     	     }
     	     else {
-    		       color = Color(1, 1, 1, 1);
-               misses++;
+    		       color = color + Color(0, 0, 0, 0);
     	     }
         }
-        if (misses > (float) samp_size * 0.5) {
-          image.setPixel(r, c, Color(1, 1, 1, 1));
-        }
-        else {
-          image.setPixel(r, c, color);
+        image.setPixel(r, c, color);
         }
 	   }
     }
 
-    RenderGlobals::getInstance().setImage(image);
+    //RenderGlobals::getInstance().setImage(image);
 
     //Image image3 = RenderGlobals::getInstance().getImage();
     //image3.write("normalAndImageShader.png");
