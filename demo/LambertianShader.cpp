@@ -50,7 +50,7 @@ namespace gssmraytracer {
       std::shared_ptr<Light> light(new PointLight());
 
       // no light falloff based on distance (defaulted to no falloff)
-      float distanceVal_no_falloff = 1.0f;
+//      float distanceVal_no_falloff = 1.0f;
 
       // linear light falloff based on distance
 //      float distanceVal_linear = (light_vec.length());
@@ -73,6 +73,7 @@ namespace gssmraytracer {
       // essentially, a global class where there is only one instance)
       if (Scene::getInstance().hitLight(dg, light)) { // if no objects in the way, do lighting
         math::Vector light_vec = light->lightDir(dg); // CHECK FOR POINT LIGHT
+        float fall_off = 1;
 
         // this computes the cosine of the angle between the light vector
         // and the geometry normal
@@ -82,7 +83,7 @@ namespace gssmraytracer {
         if (shadeAngle < 0) {
           // add the diffuse (matte) lighting to the ambient lighting based on
           // the intensity and the falloff factor based on the distance
-          float factor = -1*shadeAngle*light->intensity()/distanceVal_no_falloff;
+          float factor = -1*shadeAngle*light->intensity()/fall_off;
           shadeColor.red += mImpl->color.red*factor;
           shadeColor.green += mImpl->color.green*factor;
           shadeColor.blue += mImpl->color.blue*factor;

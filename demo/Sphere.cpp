@@ -76,6 +76,9 @@ namespace gssmraytracer {
 
       float phi;
       Point phit;
+      
+      if(!mImpl->bb.hit(ws_ray))
+        return false;
 
       // Transform the ray into object space
       math::Transform tf = worldToObjectSpace();
@@ -147,8 +150,8 @@ namespace gssmraytracer {
       Point phit;
 
       //UNCOMMENT FOR BROKEN BB
-      //if(!mImpl->bb.hit(ws_ray))
-      //  return false;
+      if(!mImpl->bb.hit(ws_ray))
+        return false;
 
       // Transform the ray into object space
       Transform transform = worldToObjectSpace();
