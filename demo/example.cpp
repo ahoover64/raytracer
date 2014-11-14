@@ -153,11 +153,11 @@ int main(int argc, char* argv[]) {
     scene.addPrimitive(prim2);
     scene.addLight(light);
 
-    const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
+    const int samp_size = 2; // SET NUMBER OF SAMPLES PER PIXEL
 
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
-        Color color(0,0,0,0);
+        Color color(0,0,0,1);
         for(int samp = 0; samp < samp_size; ++samp) {
            float epsilon = ((float) rand() / (RAND_MAX));
            float delta = ((float) rand() / (RAND_MAX));
@@ -171,13 +171,12 @@ int main(int argc, char* argv[]) {
     		       color = color + p->shade(dg);
     	     }
     	     else {
-    		       color = color + Color(0, 0, 0, 0);
+    		       color = Color(1, 1, 1, 1);
     	     }
         }
         image.setPixel(r, c, color);
-        }
-	   }
-    }
+      }
+	  }
 
     //RenderGlobals::getInstance().setImage(image);
 
