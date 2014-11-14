@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
     scene.addPrimitive(prim2);
     scene.addLight(light);
 
-    const int samp_size = 2; // SET NUMBER OF SAMPLES PER PIXEL
+    const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
 
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
@@ -171,10 +171,11 @@ int main(int argc, char* argv[]) {
     		       color = color + p->shade(dg);
     	     }
     	     else {
-    		       color = Color(1, 1, 1, 1);
+    		       color = color + Color(1, 1, 1, 1);
     	     }
         }
-        image.setPixel(r, c, color);
+        //std::cout << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << std::endl;
+        image.setPixel(r, c, color / (float) samp_size);
       }
 	  }
 

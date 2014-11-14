@@ -7,7 +7,15 @@ namespace gssmraytracer {
                 red(r), green(g), blue(b), alpha(a)
                 {}
     Color Color::operator+(const Color &other) const {
-      return Color(red + other.red, green + other.green, blue + other.blue, alpha + other.alpha);
+      Color c(red + other.red, green + other.green, blue + other.blue, alpha + other.alpha);
+      c.alpha = (c.alpha > 1) ? 1:c.alpha;
+      return c;
+    }
+
+    Color Color::operator/(const float factor) const {
+      Color c(red / factor, green / factor, blue / factor, alpha);
+      c.alpha = (c.alpha > 1) ? 1:c.alpha;
+      return c;
     }
   }
 }
