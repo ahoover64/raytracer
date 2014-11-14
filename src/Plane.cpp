@@ -6,20 +6,20 @@ public:
   geometry::Point point;
 };
 
-Ray::Ray() : mImpl(new Impl){
+Plane::Plane() : mImpl(new Impl){
   mImpl->normal = new Vector();
   mImpl->point = new Point();
 }
 
-Ray::Ray(const geometry::Point &pt, const math::Vector &norm) : mImpl(new Impl) {
+Plane::Plane(const geometry::Point &pt, const math::Vector &norm) : mImpl(new Impl) {
   mImpl->normal = norm;
   mImpl->point = pt;
 }
 
-bool Ray::hit(const utils::Ray &ws_ray, float &tHit) {
-
+bool Plane::Plane(const utils::Ray &ws_ray, float &tHit) const {
+  return true;
 }
 
-bool Ray::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<DifferentialGeometry> &dg) {
-  
+bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry::DifferentialGeometry> &dg) const {
+  return true;
 }

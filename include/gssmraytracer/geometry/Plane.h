@@ -17,6 +17,6 @@ namespace gssmraytracer {
     private:
       class Impl;
       std::shared_ptr<Impl> mImpl;
-    }
+    };
   }
 }

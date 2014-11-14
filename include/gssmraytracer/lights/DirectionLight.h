@@ -8,12 +8,12 @@ namespace gssmraytracer {
     class DirectionLight : public Light {
     public:
       DirectionLight();
-      DirectionLight(const Color &c, float intensity, const geometry::Plane &plane, const math::Vector &dir);
+      DirectionLight(const utils::Color &c, float intensity, const geometry::Plane &plane, const math::Vector &dir);
       bool hit(const geometry::DifferentialGeometry &dg) const;
       math::Vector lightDir(const geometry::DifferentialGeometry &dg) const;
     private:
       class Impl;
       std::shared_ptr<Impl> mImpl;
-    }
+    };
   }
 }
