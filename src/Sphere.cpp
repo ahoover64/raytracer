@@ -2,7 +2,7 @@
 #include <gssmraytracer/math/Transform.h>
 #include <gssmraytracer/utils/Color.h>
 #include <gssmraytracer/utils/gssmraytracer.h>
-#include "Sphere.h"
+#include "gssmraytracer/geometry/Sphere.h"
 #include <algorithm>
 #include <iostream>
 #include <gssmraytracer/geometry/BoundingBox.h>
@@ -76,7 +76,7 @@ namespace gssmraytracer {
 
       float phi;
       Point phit;
-      
+
       if(!mImpl->bb.hit(ws_ray))
         return false;
 

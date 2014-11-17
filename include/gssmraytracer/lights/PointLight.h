@@ -1,3 +1,6 @@
+#ifndef  __POINTLIGHT_H__
+#define  __POINTLIGHT_H__
+
 #include "gssmraytracer/utils/Light.h"
 #include <gssmraytracer/geometry/Point.h>
 #include <gssmraytracer/geometry/DifferentialGeometry.h>
@@ -18,3 +21,5 @@ namespace gssmraytracer {
     std::shared_ptr<Impl> mImpl;
   };
 }
+
+#endif

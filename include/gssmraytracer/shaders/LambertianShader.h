@@ -10,6 +10,8 @@ The lighting information has been hardcoded in.  You should implement a light
 class and replace the hardcoded information with your team's implementation.
 
 *****************************************************/
+#ifndef __LAMBERTIANSHADER_H__
+#define __LAMBERTIANSHADER_H__
 #include <gssmraytracer/utils/Shader.h>
 #include <gssmraytracer/utils/Color.h>
 #include <memory>
@@ -30,3 +32,5 @@ namespace gssmraytracer {
     };
   }
 }
+
+#endif

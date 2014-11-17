@@ -1,4 +1,4 @@
-#include "NormalShader.h"
+#include "gssmraytracer/shaders/NormalShader.h"
 #include <gssmraytracer/utils/Color.h>
 
 using namespace gssmraytracer::geometry;

@@ -1,3 +1,6 @@
+#ifndef __DIRECTIONLIGHT_H__
+#define __DIRECTIONLIGHT_H__
+
 #include "gssmraytracer/utils/Light.h"
 #include "gssmraytracer/utils/Ray.h"
 #include "gssmraytracer/geometry/Plane.h"
@@ -17,3 +20,5 @@ namespace gssmraytracer {
     };
   }
 }
+
+#endif

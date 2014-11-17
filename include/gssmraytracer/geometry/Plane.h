@@ -1,3 +1,6 @@
+#ifndef __PLANE_H__
+#define __PLANE_H__
+
 #include "gssmraytracer/geometry/Shape.h"
 #include "gssmraytracer/utils/Ray.h"
 #include "gssmraytracer/math/Vector.h"
@@ -20,3 +23,5 @@ namespace gssmraytracer {
     };
   }
 }
+
+#endif

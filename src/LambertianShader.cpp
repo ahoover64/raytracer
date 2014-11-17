@@ -10,10 +10,10 @@ The lighting information has been hardcoded in.  You should implement a light
 class and replace the hardcoded information with your team's implementation.
 
 *****************************************************/
-#include "LambertianShader.h"
+#include "gssmraytracer/shaders/LambertianShader.h"
 #include <gssmraytracer/utils/Color.h>
 #include <gssmraytracer/utils/Scene.h>
-#include "PointLight.h"
+#include "gssmraytracer/lights/PointLight.h"
 
 using namespace gssmraytracer::geometry;
 namespace gssmraytracer {

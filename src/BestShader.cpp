@@ -1,4 +1,4 @@
-#include "BestShader.h"
+#include "gssmraytracer/shaders/BestShader.h"
 #include <gssmraytracer/utils/Color.h>
 
 using namespace gssmraytracer::geometry;

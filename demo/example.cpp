@@ -5,7 +5,7 @@
 #include <gssmraytracer/utils/Shader.h>
 #include <gssmraytracer/math/Vector.h>
 #include <memory>
-#include "Sphere.h"
+#include "gssmraytracer/geometry/Sphere.h"
 
 #include <gssmraytracer/utils/CmdLineFind.h>
 
@@ -22,13 +22,8 @@
 #include <gssmraytracer/utils/Color.h>
 #include <iostream>
 #include <gssmraytracer/utils/Light.h>
-
-#include "ImageShader.h"
-#include "BestShader.h"
-#include "NormalShader.h"
-#include "LambertianShader.h"
-
-#include "PointLight.h"
+#include "gssmraytracer/shaders/LambertianShader.h"
+#include "gssmraytracer/lights/PointLight.h"
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;

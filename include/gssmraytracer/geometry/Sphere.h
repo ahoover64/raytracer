@@ -1,3 +1,5 @@
+#ifndef __SPHERE_H__
+#define __SPHERE_H__
 #include <gssmraytracer/geometry/Shape.h>
 #include <gssmraytracer/math/Transform.h>
 #include <memory>
@@ -23,3 +25,5 @@ namespace gssmraytracer {
     };
   }
 }
+
+#endif

@@ -1,4 +1,4 @@
-#include "PointLight.h"
+#include "gssmraytracer/lights/PointLight.h"
 #include <gssmraytracer/geometry/Point.h>
 
 #include <iostream>
