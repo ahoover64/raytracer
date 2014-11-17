@@ -20,9 +20,24 @@ Plane::Plane(const geometry::Point &pt, const math::Vector &norm) : Shape(math::
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
-  return true;
+  float d = norm.x() * pt.x() + norm.y() * pt.y() + norm.z() * pt.z();
+  tHit = (d - ws_ray.origin().x()*norm.x() - ws_ray.origin().z()*norm.y()
+            - ws_ray.origin().z()*norm.z()) / norm.dot(ws_ray.dir());
+  if(tHit > ws_ray.mint() && tHit < ws_ray.maxt())
+    return true;
+  return false;
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry::DifferentialGeometry> &dg) const {
-  return true;
+  float d = norm.x() * pt.x() + norm.y() * pt.y() + norm.z() * pt.z();
+  if(norm.dot(ws_ray.dir()))
+    return false;
+  tHit = (d - ws_ray.origin().x()*norm.x() - ws_ray.origin().z()*norm.y()
+            - ws_ray.origin().z()*norm.z()) / norm.dot(ws_ray.dir());
+  if(tHit > ws_ray.mint() && tHit < ws_ray.maxt()) {
+    dg.nn = norm;
+    dg.p = ws_ray(tHit);
+    return true;
+  }
+  return false;
 }
