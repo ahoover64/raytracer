@@ -73,7 +73,7 @@ namespace gssmraytracer {
       // essentially, a global class where there is only one instance)
       if (Scene::getInstance().hitLight(dg, light)) { // if no objects in the way, do lighting
         math::Vector light_vec = light->lightDir(dg); // CHECK FOR POINT LIGHT
-        float fall_off = 1;
+        float fall_off = (light_vec.length() * light_vec.length());
 
         // this computes the cosine of the angle between the light vector
         // and the geometry normal

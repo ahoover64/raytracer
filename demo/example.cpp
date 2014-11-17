@@ -129,18 +129,18 @@ int main(int argc, char* argv[]) {
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
     camera.setAspectRatio(16./9.);
 
-    std::shared_ptr<gssmraytracer::Light> light(new gssmraytracer::PointLight(Color(1, 1, 1, 0), 5.f, Point(0, 20, 0)));
+    std::shared_ptr<gssmraytracer::Light> light(new gssmraytracer::PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
 
     Transform transform1, transform2;
-    Vector position(0.0,0.0,0.0);
-    Vector position2(15.,10.0,0.0);
+    Vector position(-5.0,0.0,0.0);
+    Vector position2(10.,-5.0,0.0);
     transform1.translate(position);
     transform2.translate(position2);
 
     Scene &scene = Scene::getInstance();
 
     std::shared_ptr<Shader> shader(new LambertianShader(Color(0.f, 1.f, 0.f, 1.f)));
-    std::shared_ptr<Shader> shader2(new LambertianShader(Color(1.f, 1.f, .5f, 1.f)));
+    std::shared_ptr<Shader> shader2(new LambertianShader(Color(0.f, .75f, .75f, 1.f)));
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
       }
 	  }
 
-    //RenderGlobals::getInstance().setImage(image);
+    RenderGlobals::getInstance().setImage(image);
 
     //Image image3 = RenderGlobals::getInstance().getImage();
     //image3.write("normalAndImageShader.png");
