@@ -18,7 +18,7 @@
 
 
 #include <gssmraytracer/utils/Image.h>
-#include "RenderGlobals.h"
+#include "gssmraytracer/utils/RenderGlobals.h"
 #include <gssmraytracer/utils/Color.h>
 #include <iostream>
 #include <gssmraytracer/utils/Light.h>
