@@ -1,6 +1,8 @@
 #include "gssmraytracer/shaders/RefShader.h"
 #include <math.h>
 
+using namespace gssmraytracer::shaders;
+
 class RefShader::Impl {
 public:
   int MAX_BOUNCE;
@@ -11,7 +13,7 @@ public:
   utils::Color color;
 };
 
-RefShader::RefShader() : LambertainShader(Color(0,0,0,1)), mImpl(new Impl) {
+RefShader::RefShader() : LambertainShader(utils::Color(0,0,0,1)), mImpl(new Impl) {
   mImpl->MAX_BOUNCE = 5;
   mImpl->refl_w = 1.f;
   mImpl->refr_w = 1.f;
@@ -20,10 +22,10 @@ RefShader::RefShader() : LambertainShader(Color(0,0,0,1)), mImpl(new Impl) {
   mImpl->color = Color(0,0,0,1);
 }
 
-RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight, float refraction_weight) :
-                                                    LambertianShader(col), mImpl(new Impl) {
+RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight,
+                    float refraction_weight, float ref_index) : LambertianShader(col), mImpl(new Impl) {
   mImpl->MAX_BOUNCE = max_bounces;
-  mImpl->lamb_w = lamb_wight;
+  mImpl->lamb_w = lamb_weight;
   mImpl->refl_w = reflection_weight;
   mImpl->refr_w = refraction_weight;
   mImpl->n = ref_index;

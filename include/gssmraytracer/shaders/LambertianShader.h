@@ -17,7 +17,7 @@ class and replace the hardcoded information with your team's implementation.
 #include <memory>
 
 namespace gssmraytracer {
-  namespace utils {
+  namespace shaders {
     class LambertianShader: public shaders::Shader {
     public:
       LambertianShader(const Color &color);
