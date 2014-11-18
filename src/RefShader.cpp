@@ -2,6 +2,7 @@
 #include <math.h>
 
 using namespace gssmraytracer::shaders;
+using namespace gssmraytracer;
 
 class RefShader::Impl {
 public:
@@ -13,7 +14,7 @@ public:
   utils::Color color;
 };
 
-RefShader::RefShader() : LambertainShader(utils::Color(0,0,0,1)), mImpl(new Impl) {
+RefShader::RefShader() : LambertianShader(utils::Color(0,0,0,1)), mImpl(new Impl) {
   mImpl->MAX_BOUNCE = 5;
   mImpl->refl_w = 1.f;
   mImpl->refr_w = 1.f;
@@ -32,7 +33,7 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
   mImpl->color = col;
 }
 
-utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry &dg, int bounce_num, const Ray &ray) {
+utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg, int bounce_num, const Ray &ray) {
   utils::Color c_refl = mImpl->color;
   utils::Color c_refr = mImpl->color;
   utils::Color c_lamb = mImpl->color;
