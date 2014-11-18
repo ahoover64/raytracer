@@ -33,7 +33,7 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
   mImpl->color = col;
 }
 
-utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg, int bounce_num, const Ray &ray) {
+utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg, int bounce_num, const Ray &ray) const {
   utils::Color c_refl = mImpl->color;
   utils::Color c_refr = mImpl->color;
   utils::Color c_lamb = mImpl->color;
@@ -56,8 +56,8 @@ utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeomet
     }
   }
   c_lamb = LambertianShader::shade(dg);
-  utils::Color avg_color = (mImpl->refl_w*c_refl
-                          + mImpl->refr_w*c_refr
-                          + mImpl->lamb_w*c_lamb) / (3 * mImpl->refl_w * mImpl->refr_w * mImpl->lamb_w);
+  utils::Color avg_color = (c_refl*mImpl->refl_w
+                          + c_refr*mImpl->refr_w
+                          + c_lamb*mImpl->lamb_w) / (3 * mImpl->refl_w * mImpl->refr_w * mImpl->lamb_w);
   return avg_color;
 }

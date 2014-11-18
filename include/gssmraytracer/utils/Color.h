@@ -16,6 +16,7 @@ namespace gssmraytracer {
            );
       Color operator+(const Color &other) const;
       Color operator/(const float factor) const;
+      Color operator*(const float factor) const;
 
     float red;
     float green;
