@@ -1,0 +1,60 @@
+#include "gssmraytracer/shaders/RefShader.h"
+#include <math.h>
+
+class RefShader::Impl {
+public:
+  int MAX_BOUNCE;
+  float refl_w;
+  float refr_w;
+  float lamb_w;
+  float n;
+  utils::Color color;
+};
+
+RefShader::RefShader() : LambertainShader(Color(0,0,0,1)), mImpl(new Impl) {
+  mImpl->MAX_BOUNCE = 5;
+  mImpl->refl_w = 1.f;
+  mImpl->refr_w = 1.f;
+  mImpl->lamb_w = 1.f;
+  mImpl->n = .5f;
+  mImpl->color = Color(0,0,0,1);
+}
+
+RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight, float refraction_weight) :
+                                                    LambertianShader(col), mImpl(new Impl) {
+  mImpl->MAX_BOUNCE = max_bounces;
+  mImpl->lamb_w = lamb_wight;
+  mImpl->refl_w = reflection_weight;
+  mImpl->refr_w = refraction_weight;
+  mImpl->n = ref_index;
+  mImpl->color = col;
+}
+
+utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry &dg, int bounce_num, const Ray &ray) {
+  utils::Color c_refl = mImpl->color;
+  utils::Color c_refr = mImpl->color;
+  utils::Color c_lamb = mImpl->color;
+  if(bounce_num < mImpl->MAX_BOUNCE) {
+    std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
+    float thit_refl;
+    Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(dg.nn))*dg.nn);
+
+    std::shared_ptr<geometry::DifferentialGeometry> dg_refr;
+    Ray refr(dg.p, n*ray.dir() + (n*(ray.dir().dot(dg.nn))
+                    - sqrt(1 - n*n*(1 - (ray.dir().dot(dg.nn))*(ray.dir().dot(dg.nn))))*dg.nn));
+    float thit_refr;
+    if(Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
+      c_refl = shade(dg_refl, ++bounce_num, refl);
+      --bouncenum;
+    }
+    if(Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
+      c_refr = shade(dg_refl, ++bounce_num, refr);
+      --bouncenum;
+    }
+  }
+  c_lamb = LambertianShader::shade(dg);
+  utils::Color avg_color = (mImpl->refl_w*c_refl
+                          + mImpl->refr_w*c_refr
+                          + mImpl->lamb_w*c_lamb) / (3 * mImpl->refl_w * mImpl->refr_w * mImpl->lamb_w);
+  return avg_color;
+}
