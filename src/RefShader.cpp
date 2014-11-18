@@ -1,4 +1,5 @@
 #include "gssmraytracer/shaders/RefShader.h"
+#include "gssmraytracer/utils/Ray.h"
 #include <math.h>
 
 using namespace gssmraytracer::shaders;
@@ -20,7 +21,7 @@ RefShader::RefShader() : LambertianShader(utils::Color(0,0,0,1)), mImpl(new Impl
   mImpl->refr_w = 1.f;
   mImpl->lamb_w = 1.f;
   mImpl->n = .5f;
-  mImpl->color = Color(0,0,0,1);
+  mImpl->color = utils::Color(0,0,0,1);
 }
 
 RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight,
@@ -33,26 +34,27 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
   mImpl->color = col;
 }
 
-utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg, int bounce_num, const Ray &ray) const {
+utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg,
+                              int bounce_num, const utils::Ray &ray) const {
   utils::Color c_refl = mImpl->color;
   utils::Color c_refr = mImpl->color;
   utils::Color c_lamb = mImpl->color;
   if(bounce_num < mImpl->MAX_BOUNCE) {
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
     float thit_refl;
-    Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(dg.nn))*dg.nn);
+    utils::Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(dg.nn))*dg.nn);
 
     std::shared_ptr<geometry::DifferentialGeometry> dg_refr;
-    Ray refr(dg.p, n*ray.dir() + (n*(ray.dir().dot(dg.nn))
+    utils::Ray refr(dg.p, n*ray.dir() + (n*(ray.dir().dot(dg.nn))
                     - sqrt(1 - n*n*(1 - (ray.dir().dot(dg.nn))*(ray.dir().dot(dg.nn))))*dg.nn));
     float thit_refr;
     if(Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
       c_refl = shade(dg_refl, ++bounce_num, refl);
-      --bouncenum;
+      --bouncen_um;
     }
     if(Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
       c_refr = shade(dg_refl, ++bounce_num, refr);
-      --bouncenum;
+      --bounce_num;
     }
   }
   c_lamb = LambertianShader::shade(dg);
