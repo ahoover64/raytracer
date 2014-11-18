@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
     //std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
     Plane pl(Point(-5,0,10), Vector(1,1,0));
     Vector vec(-1,-1,0);
-    std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 250.f, pl, vec));
+    std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 5.f, pl, vec));
 
     Transform transform1, transform2;
     Vector position(-5.0,0.0,0.0);
