@@ -10,7 +10,7 @@ namespace gssmraytracer {
     public:
       NormalShader();
       NormalShader& operator=(const NormalShader &);
-      Color shade(const geometry::DifferentialGeometry &dg);
+      Color shade(const geometry::DifferentialGeometry &dg) const;
 
     private:
       class Impl;

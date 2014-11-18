@@ -10,7 +10,7 @@ namespace gssmraytracer {
     public:
       BestShader();
       BestShader& operator=(const BestShader &);
-      Color shade(const geometry::DifferentialGeometry &dg);
+      Color shade(const geometry::DifferentialGeometry &dg) const;
 
     private:
       class Impl;
