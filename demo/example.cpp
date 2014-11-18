@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 
     Transform transform1, transform2;
     Vector position(-5.0,0.0,0.0);
-    Vector position2(10.,-5.0,0.0);
+    Vector position2(10.,-5.0,-5.0);
     transform1.translate(position);
     transform2.translate(position2);
 

@@ -35,6 +35,10 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
   mImpl->color = col;
 }
 
+uitls::Color RefShader::shade(const geometry::DifferentialGeometry &dg) {
+  return shade(dg, 0, ray);
+}
+
 utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg,
                               int bounce_num, const utils::Ray &ray) const {
   utils::Color c_refl = mImpl->color;
@@ -58,13 +62,13 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg,
       --bounce_num;
     }
     if(utils::Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
-      c_refr = shade(*dg_refl, ++bounce_num, refr);
+      c_refr = shade(*dg_refr, ++bounce_num, refr);
       --bounce_num;
     }
   }
   c_lamb = LambertianShader::shade(dg);
   utils::Color avg_color = (c_refl*mImpl->refl_w
                           + c_refr*mImpl->refr_w
-                          + c_lamb*mImpl->lamb_w) / (3 * mImpl->refl_w * mImpl->refr_w * mImpl->lamb_w);
+                          + c_lamb*mImpl->lamb_w) / (mImpl->refl_w+mImpl->refr_w+mImpl->lamb_w);
   return avg_color;
 }
