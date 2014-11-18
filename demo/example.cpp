@@ -28,6 +28,7 @@
 
 #include <iostream>
 #include <memory>
+#include <omp.h>
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
@@ -164,6 +165,7 @@ int main(int argc, char* argv[]) {
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
 
+    #pragma omp parallel for
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
