@@ -2,10 +2,12 @@
 #include <gssmraytracer/utils/Scene.h>
 #include <gssmraytracer/geometry/Primitive.h>
 #include <gssmraytracer/utils/Color.h>
-#include <gssmraytracer/utils/Shader.h>
+#include <gssmraytracer/shaders/Shader.h>
 #include <gssmraytracer/math/Vector.h>
 #include <memory>
+
 #include "gssmraytracer/geometry/Sphere.h"
+#include "gssmraytracer/geometry/Plane.h"
 
 #include <gssmraytracer/utils/CmdLineFind.h>
 
@@ -21,9 +23,11 @@
 #include "gssmraytracer/utils/RenderGlobals.h"
 #include <gssmraytracer/utils/Color.h>
 #include <iostream>
-#include <gssmraytracer/utils/Light.h>
-#include "gssmraytracer/shaders/LambertianShader.h"
+#include <gssmraytracer/lights/Light.h>
 #include "gssmraytracer/lights/PointLight.h"
+
+#include "gssmraytracer/shaders/LambertianShader.h"
+#include "gssmraytracer/shaders/CheckeredShader.h"
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
@@ -126,7 +130,7 @@ int main(int argc, char* argv[]) {
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
     camera.setAspectRatio((float) width / height);
 
-    std::shared_ptr<gssmraytracer::Light> light(new gssmraytracer::PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
+    std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
 
     Transform transform1, transform2;
     Vector position(-5.0,0.0,0.0);
@@ -141,13 +145,18 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
+    std::shared_ptr<Shader> shader3(new CheckeredShader());
+    std::shared_ptr<Plane> plane(new Plane(Point(0.f,-15.f,0.f), Vector(0.f,1.f,0.f)));
+
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
     std::shared_ptr<Primitive> prim2(new Primitive(sphere2, shader2));
+    std::shared_ptr<Primitive> prim3(new Primitive(plane, shader3));
 
 
     scene.addPrimitive(prim1);
     scene.addPrimitive(prim2);
+    scene.addPrimitive(prim3);
     scene.addLight(light);
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL

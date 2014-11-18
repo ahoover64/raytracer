@@ -4,8 +4,10 @@
 #include <memory>
 #include "gssmraytracer/geometry/Point.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
-#include "gssmraytracer/utils/Scene.h"
 #include "gssmraytracer/math/Vector.h"
+#include "gssmraytracer/utils/Color.h"
+
+using namespace gssmraytracer;
 
 namespace gssmraytracer {
 	namespace lights {
