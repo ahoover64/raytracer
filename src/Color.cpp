@@ -18,7 +18,7 @@ namespace gssmraytracer {
       return c;
     }
 
-    Color operator*(const float factor) const {
+    Color Color::operator*(const float factor) const {
       Color c(red * factor, green * factor, blue * factor, alpha * factor);
       c.alpha = (c.alpha > 1) ? 1:c.alpha;
       return c;
