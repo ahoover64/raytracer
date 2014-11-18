@@ -49,12 +49,12 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg,
     utils::Ray refr(dg.p, mImpl->n*ray.dir() + (mImpl->n*(ray.dir().dot(dg.nn))
                     - sqrt(1 - mImpl->n*mImpl->n*(1 - (ray.dir().dot(dg.nn))*(ray.dir().dot(dg.nn))))*dg.nn));
     float thit_refr;
-    if(Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
-      c_refl = shade(dg_refl, ++bounce_num, refl);
-      --bouncen_num;
+    if(utils::Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
+      c_refl = shade(&dg_refl, ++bounce_num, refl);
+      --bounce_num;
     }
-    if(Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
-      c_refr = shade(dg_refl, ++bounce_num, refr);
+    if(utils::Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
+      c_refr = shade(&dg_refl, ++bounce_num, refr);
       --bounce_num;
     }
   }
