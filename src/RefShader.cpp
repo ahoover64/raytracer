@@ -40,11 +40,12 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg,
   utils::Color c_refl = mImpl->color;
   utils::Color c_refr = mImpl->color;
   utils::Color c_lamb = mImpl->color;
-  math::Vector normal(dg.nn.x(), dg.nn.y(). dg.nn.z());
+  math::Vector normal(dg.nn.x(), dg.nn.y(), dg.nn.z());
+  normal.normalize();
   if(bounce_num < mImpl->MAX_BOUNCE) {
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
     float thit_refl;
-    utils::Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(dg.nn))*dg.nn);
+    utils::Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(normal))*normal);
 
     std::shared_ptr<geometry::DifferentialGeometry> dg_refr;
     utils::Ray refr(dg.p, mImpl->n*ray.dir() + (mImpl->n*(ray.dir().dot(normal))
