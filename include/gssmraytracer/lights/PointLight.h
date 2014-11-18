@@ -8,6 +8,8 @@
 #include <gssmraytracer/math/Vector.h>
 #include <memory>
 
+using namespace gssmraytracer::lights;
+
 namespace gssmraytracer {
   namespace lights {
   class PointLight : public Light {

@@ -6,7 +6,7 @@
 
 namespace gssmraytracer {
   namespace utils {
-    class BestShader: public Shader {
+    class BestShader: public shaders::Shader {
     public:
       BestShader();
       BestShader& operator=(const BestShader &);

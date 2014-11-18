@@ -14,6 +14,7 @@ class and replace the hardcoded information with your team's implementation.
 #include <gssmraytracer/utils/Color.h>
 #include <gssmraytracer/utils/Scene.h>
 #include "gssmraytracer/lights/PointLight.h"
+#include "gssmraytracer/lights/Light.h"
 
 using namespace gssmraytracer::geometry;
 namespace gssmraytracer {
@@ -47,7 +48,7 @@ namespace gssmraytracer {
       // hardcoded light info in the shader
       // this implementation should be done in the light object
 
-      std::shared_ptr<Light> light(new PointLight());
+      std::shared_ptr<lights::Light> light(new lights::PointLight());
 
       // no light falloff based on distance (defaulted to no falloff)
 //      float distanceVal_no_falloff = 1.0f;

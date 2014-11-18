@@ -4,9 +4,7 @@
 #include <vector>
 #include "gssmraytracer/geometry/Primitive.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
-#include "gssmraytracer/utils/Light.h"
-
-class Light;
+#include "gssmraytracer/lights/Light.h"
 
 namespace gssmraytracer {
   namespace utils {
@@ -14,13 +12,13 @@ namespace gssmraytracer {
     public:
       static Scene& getInstance();
       void addPrimitive(const std::shared_ptr<geometry::Primitive> &);
-      void addLight(const std::shared_ptr<Light> &lite);
+      void addLight(const std::shared_ptr<lights::Light> &lite);
       bool hit(const Ray &ws_ray) const;
       bool hit(const Ray &ws_ray, float &hit_time) const;
       bool hit(const Ray &ws_ray, float &hit_time, std::shared_ptr<geometry::DifferentialGeometry> & dg) const;
       bool hit(const Ray &ws_ray, float &hit_time, std::shared_ptr<geometry::DifferentialGeometry> & dg,
         std::shared_ptr<geometry::Primitive> &prim) const;
-      bool hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<Light> &lite) const;
+      bool hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<lights::Light> &lite) const;
       ~Scene();
     private:
       Scene();

@@ -6,10 +6,10 @@
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
 
 namespace gssmraytracer {
-  namespace utils {
+  namespace shaders {
     class Shader {
     public:
-      virtual Color shade(const geometry::DifferentialGeometry &dg) = 0;
+      virtual utils::Color shade(const geometry::DifferentialGeometry &dg) = 0;
     };
   }
 }

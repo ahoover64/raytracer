@@ -4,12 +4,12 @@ namespace gssmraytracer {
     class Primitive::Impl {
     public:
       std::shared_ptr<Shape> shape;
-      std::shared_ptr<utils::Shader> shader;
+      std::shared_ptr<shaders::Shader> shader;
 
     };
 
     Primitive::Primitive(const std::shared_ptr<Shape> &shape,
-      const std::shared_ptr<utils::Shader> &shader) : mImpl(new Impl) {
+      const std::shared_ptr<shaders::Shader> &shader) : mImpl(new Impl) {
         mImpl->shape = shape;
         mImpl->shader = shader;
       }

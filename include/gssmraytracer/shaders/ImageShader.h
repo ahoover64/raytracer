@@ -8,7 +8,7 @@
 
 namespace gssmraytracer {
   namespace utils {
-    class ImageShader: public Shader {
+    class ImageShader: public shaders::Shader {
     public:
       ImageShader(const Image &image);
       ImageShader& operator=(const ImageShader &);

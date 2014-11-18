@@ -1,8 +1,10 @@
 #include "gssmraytracer/lights/Light.h"
 #include "gssmraytracer/utils/Color.h"
 
-namespace gssmraytracer{
+using namespace gssmraytracer::lights;
 
+namespace gssmraytracer{
+namespace lights {
   class Light::Impl {
   public:
     float intensity;
@@ -26,5 +28,5 @@ namespace gssmraytracer{
   utils::Color Light::color() const {
     return mImpl->color;
   }
-
+}
 }

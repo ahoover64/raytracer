@@ -5,38 +5,38 @@ using namespace gssmraytracer::geometry;
 
 class Plane::Impl {
 public:
-  math::Vector normal;
-  geometry::Point point;
+  math::Vector norm;
+  geometry::Point pt;
 };
 
 Plane::Plane() : Shape(math::Transform()), mImpl(new Impl){
-  mImpl->normal = math::Vector();
-  mImpl->point = geometry::Point();
+  mImpl->norm = math::Vector();
+  mImpl->pt = geometry::Point();
 }
 
-Plane::Plane(const geometry::Point &pt, const math::Vector &norm) : Shape(math::Transform()), mImpl(new Impl) {
-  mImpl->normal = norm;
-  mImpl->point = pt;
+Plane::Plane(const geometry::Point &point, const math::Vector &normal) : Shape(math::Transform()), mImpl(new Impl) {
+  mImpl->norm = normal;
+  mImpl->pt = point;
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
-  float d = norm.x() * pt.x() + norm.y() * pt.y() + norm.z() * pt.z();
-  tHit = (d - ws_ray.origin().x()*norm.x() - ws_ray.origin().z()*norm.y()
-            - ws_ray.origin().z()*norm.z()) / norm.dot(ws_ray.dir());
+  float d = mImpl->norm.x() * mImpl->pt.x() + mImpl->norm.y() * mImpl->pt.y() + mImpl->norm.z() * mImpl->pt.z();
+  tHit = (d - ws_ray.origin().x()*mImpl->norm.x() - ws_ray.origin().z()*mImpl->norm.y()
+            - ws_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(ws_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt())
     return true;
   return false;
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry::DifferentialGeometry> &dg) const {
-  float d = norm.x() * pt.x() + norm.y() * pt.y() + norm.z() * pt.z();
-  if(norm.dot(ws_ray.dir()))
+  float d = mImpl->norm.x() * mImpl->pt.x() + mImpl->norm.y() * mImpl->pt.y() + mImpl->norm.z() * mImpl->pt.z();
+  if(mImpl->norm.dot(ws_ray.dir()))
     return false;
-  tHit = (d - ws_ray.origin().x()*norm.x() - ws_ray.origin().z()*norm.y()
-            - ws_ray.origin().z()*norm.z()) / norm.dot(ws_ray.dir());
+  tHit = (d - ws_ray.origin().x()*mImpl->norm.x() - ws_ray.origin().z()*mImpl->norm.y()
+            - ws_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(ws_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt()) {
-    dg.nn = norm;
-    dg.p = ws_ray(tHit);
+    dg->nn = mImpl->norm;
+    dg->p = ws_ray(tHit);
     return true;
   }
   return false;

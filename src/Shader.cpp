@@ -1,4 +1,4 @@
-#include "gssmraytracer/utils/Shader.h"
+#include "gssmraytracer/shaders/Shader.h"
 #include "gssmraytracer/geometry/Point.h"
 #include "gssmraytracer/utils/Scene.h"
 

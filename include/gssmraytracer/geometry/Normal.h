@@ -10,6 +10,7 @@ namespace gssmraytracer {
       Normal(const float x, const float y, const float z);
       Normal(const Normal &normal);
       Normal& operator=(const Normal &normal);
+      Normal& operator=(const math::Vector &vector);
       void normalize();
       const Normal normalized() const;
       const float x() const;

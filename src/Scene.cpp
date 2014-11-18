@@ -1,6 +1,6 @@
 #include <vector>
 #include "gssmraytracer/utils/Scene.h"
-#include "gssmraytracer/utils/Light.h"
+#include "gssmraytracer/lights/Light.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
 #include <limits>
 
@@ -10,7 +10,7 @@ namespace gssmraytracer {
     public:
 
       std::vector<std::shared_ptr<geometry::Primitive> > primitives;
-      std::vector<std::shared_ptr<Light>> lights;
+      std::vector<std::shared_ptr<lights::Light>> lights;
 
 
     };
@@ -30,7 +30,7 @@ namespace gssmraytracer {
       mImpl->primitives.push_back(primitive);
     }
 
-    void Scene::addLight(const std::shared_ptr<Light> &lite) {
+    void Scene::addLight(const std::shared_ptr<lights::Light> &lite) {
       mImpl->lights.push_back(lite);
     }
 
@@ -101,8 +101,8 @@ namespace gssmraytracer {
 
       }
 
-    bool Scene::hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<Light> &lite) const {
-        for (std::vector<std::shared_ptr<Light>>::const_iterator iter =
+    bool Scene::hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<lights::Light> &lite) const {
+        for (std::vector<std::shared_ptr<lights::Light>>::const_iterator iter =
           mImpl->lights.begin(); iter != mImpl->lights.end(); ++iter) {
             if ((*iter)->hit(dg)) {
               lite = (*iter);

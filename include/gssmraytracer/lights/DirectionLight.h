@@ -6,6 +6,8 @@
 #include "gssmraytracer/geometry/Plane.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
 
+using namespace gssmraytracer::lights;
+
 namespace gssmraytracer {
   namespace lights {
     class DirectionLight : public Light {

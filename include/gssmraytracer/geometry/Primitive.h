@@ -3,7 +3,7 @@
 #include "gssmraytracer/utils/Color.h"
 #include "gssmraytracer/utils/Ray.h"
 #include "gssmraytracer/geometry/Shape.h"
-#include "gssmraytracer/utils/Shader.h"
+#include "gssmraytracer/shaders/Shader.h"
 
 namespace gssmraytracer {
   namespace geometry {
@@ -11,7 +11,7 @@ namespace gssmraytracer {
     class Primitive {
     public:
       Primitive(const std::shared_ptr<Shape> &shape,
-                const std::shared_ptr<utils::Shader> &shader);
+                const std::shared_ptr<shaders::Shader> &shader);
       bool hit(const utils::Ray &ws_ray) const;
       bool hit(const utils::Ray &ws_ray, float &hit_time) const;
       bool hit(const utils::Ray &ws_ray, float &hit_time,

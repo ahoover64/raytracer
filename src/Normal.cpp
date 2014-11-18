@@ -29,6 +29,12 @@ namespace gssmraytracer {
       }
       return *this;
     }
+
+    Normal& Normal::operator=(const math::Vector &vector)  {
+      Imath::Vec3<float> v(vector.x(), vector.y(), vector.z());
+      mImpl->vec = v;
+      return *this;
+    }
     void Normal::normalize() { mImpl->vec.normalize();}
 
     const Normal Normal::normalized() const {

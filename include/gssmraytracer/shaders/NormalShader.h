@@ -6,7 +6,7 @@
 
 namespace gssmraytracer {
   namespace utils {
-    class NormalShader: public Shader {
+    class NormalShader: public shaders::Shader {
     public:
       NormalShader();
       NormalShader& operator=(const NormalShader &);

@@ -1,5 +1,5 @@
 #include "gssmraytracer/geometry/Shape.h"
-#include "gssmraytracer/utils/Shader.h"
+#include "gssmraytracer/shaders/Shader.h"
 #include "gssmraytracer/math/Transform.h"
 using namespace gssmraytracer::utils;
 namespace gssmraytracer {

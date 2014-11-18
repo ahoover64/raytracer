@@ -28,6 +28,8 @@
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
 using namespace gssmraytracer::math;
+using namespace gssmraytracer::shaders;
+using namespace gssmraytracer::lights;
 
 void display_picture() {
   const Image image = RenderGlobals::getInstance().getImage();
@@ -122,7 +124,7 @@ int main(int argc, char* argv[]) {
     //Camera camera(Point(-5,0,-40),Vector(0,0,-1),Vector(0,1,0));
 
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
-    camera.setAspectRatio(16./9.);
+    camera.setAspectRatio((float) width / height);
 
     std::shared_ptr<gssmraytracer::Light> light(new gssmraytracer::PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
 

@@ -4,17 +4,17 @@
 #include "gssmraytracer/shaders/Shader.h"
 #include <memory>
 
-namspace gssmraytracer {
+namespace gssmraytracer {
   namespace shaders {
-    class CheckeredShader : public Shader {
+    class CheckeredShader : public shaders::Shader {
     public:
       CheckeredShader();
-      CheckeredShader(geometry::Color c1, geometry::Color c2, float side_length);
-      Color shade(const geometry::DifferentialGeometry &dg);
+      CheckeredShader(const utils::Color &c1, const utils::Color &c2, float side_length);
+      utils::Color shade(const geometry::DifferentialGeometry &dg);
     private:
       class Impl;
       std::shared_ptr<Impl> mImpl;
-    }
+    };
   }
 }
 
