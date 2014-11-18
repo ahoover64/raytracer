@@ -45,8 +45,8 @@ utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeomet
     utils::Ray refl(dg.p, ray.dir() - 2*(ray.dir().dot(dg.nn))*dg.nn);
 
     std::shared_ptr<geometry::DifferentialGeometry> dg_refr;
-    utils::Ray refr(dg.p, n*ray.dir() + (n*(ray.dir().dot(dg.nn))
-                    - sqrt(1 - n*n*(1 - (ray.dir().dot(dg.nn))*(ray.dir().dot(dg.nn))))*dg.nn));
+    utils::Ray refr(dg.p, mImpl->n*ray.dir() + (mImpl->n*(ray.dir().dot(dg.nn))
+                    - sqrt(1 - mImpl->n*mImpl->n*(1 - (ray.dir().dot(dg.nn))*(ray.dir().dot(dg.nn))))*dg.nn));
     float thit_refr;
     if(Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
       c_refl = shade(dg_refl, ++bounce_num, refl);
