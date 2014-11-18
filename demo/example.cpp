@@ -188,7 +188,7 @@ int main(int argc, char* argv[]) {
     RenderGlobals::getInstance().setImage(image);
 
     //Image image3 = RenderGlobals::getInstance().getImage();
-    //image3.write("normalAndImageShader.png");
+    image.write("test.png");
 
 
     // start up the glut utilities
