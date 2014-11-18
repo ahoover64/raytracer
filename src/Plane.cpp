@@ -15,7 +15,7 @@ Plane::Plane() : Shape(math::Transform()), mImpl(new Impl){
 }
 
 Plane::Plane(const geometry::Point &point, const math::Vector &normal) : Shape(math::Transform()), mImpl(new Impl) {
-  mImpl->norm = normal;
+  mImpl->norm = normal.normalized();
   mImpl->pt = point;
 }
 

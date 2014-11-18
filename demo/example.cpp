@@ -25,6 +25,7 @@
 #include <iostream>
 #include <gssmraytracer/lights/Light.h>
 #include "gssmraytracer/lights/PointLight.h"
+#include "gssmraytracer/lights/DirectionLight.h"
 
 #include "gssmraytracer/shaders/LambertianShader.h"
 #include "gssmraytracer/shaders/CheckeredShader.h"
@@ -130,7 +131,10 @@ int main(int argc, char* argv[]) {
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
     camera.setAspectRatio((float) width / height);
 
-    std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
+    //std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
+    Plane pl(Point(-5,0,10), Vector(1,1,0));
+    Vector vec(-1,-1,0);
+    std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 250.f, pl, vec));
 
     Transform transform1, transform2;
     Vector position(-5.0,0.0,0.0);
