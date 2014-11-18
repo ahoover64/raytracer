@@ -1,7 +1,7 @@
 #ifndef  __POINTLIGHT_H__
 #define  __POINTLIGHT_H__
 
-#include "gssmraytracer/utils/Light.h"
+#include "gssmraytracer/lights/Light.h"
 #include <gssmraytracer/geometry/Point.h>
 #include <gssmraytracer/geometry/DifferentialGeometry.h>
 #include <gssmraytracer/utils/Scene.h>
@@ -9,6 +9,7 @@
 #include <memory>
 
 namespace gssmraytracer {
+  namespace lights {
   class PointLight : public Light {
   public:
     PointLight ();
@@ -20,6 +21,7 @@ namespace gssmraytracer {
     class Impl;
     std::shared_ptr<Impl> mImpl;
   };
+}
 }
 
 #endif

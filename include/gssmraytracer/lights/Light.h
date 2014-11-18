@@ -8,6 +8,7 @@
 #include "gssmraytracer/math/Vector.h"
 
 namespace gssmraytracer {
+	namespace lights {
 	class Light{
 	public:
 		Light();
@@ -22,4 +23,6 @@ namespace gssmraytracer {
 		std::shared_ptr<Impl> mImpl;
 	};
 }
+}
+
 #endif // __LIGHT_H__

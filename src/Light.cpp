@@ -1,4 +1,4 @@
-#include "gssmraytracer/utils/Light.h"
+#include "gssmraytracer/lights/Light.h"
 #include "gssmraytracer/utils/Color.h"
 
 namespace gssmraytracer{
