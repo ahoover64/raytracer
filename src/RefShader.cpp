@@ -1,5 +1,6 @@
 #include "gssmraytracer/shaders/RefShader.h"
 #include "gssmraytracer/utils/Ray.h"
+#include "gssmraytracer/utils/Scene.h"
 #include <math.h>
 
 using namespace gssmraytracer::shaders;
@@ -34,7 +35,7 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
   mImpl->color = col;
 }
 
-utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeometry> &dg,
+utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg,
                               int bounce_num, const utils::Ray &ray) const {
   utils::Color c_refl = mImpl->color;
   utils::Color c_refr = mImpl->color;
@@ -50,7 +51,7 @@ utils::Color RefShader::shade(const std::shared_ptr<geometry::DifferentialGeomet
     float thit_refr;
     if(Scene::getInstance().hit(refl, thit_refl, dg_refl)) {
       c_refl = shade(dg_refl, ++bounce_num, refl);
-      --bouncen_um;
+      --bouncen_num;
     }
     if(Scene::getInstance().hit(refr, thit_refr, dg_refr)) {
       c_refr = shade(dg_refl, ++bounce_num, refr);
