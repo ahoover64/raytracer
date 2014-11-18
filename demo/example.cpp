@@ -1,34 +1,33 @@
-#include <gssmraytracer/utils/Camera.h>
-#include <gssmraytracer/utils/Scene.h>
-#include <gssmraytracer/geometry/Primitive.h>
-#include <gssmraytracer/utils/Color.h>
-#include <gssmraytracer/shaders/Shader.h>
-#include <gssmraytracer/math/Vector.h>
-#include <memory>
-
-#include "gssmraytracer/geometry/Sphere.h"
-#include "gssmraytracer/geometry/Plane.h"
-
-#include <gssmraytracer/utils/CmdLineFind.h>
-
-
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
 #  include <GL/glut.h>
 #endif
 
+#include <gssmraytracer/geometry/Primitive.h>
+#include "gssmraytracer/geometry/Sphere.h"
+#include "gssmraytracer/geometry/Plane.h"
 
+#include <gssmraytracer/utils/CmdLineFind.h>
 #include <gssmraytracer/utils/Image.h>
-#include "gssmraytracer/utils/RenderGlobals.h"
+#include <gssmraytracer/utils/RenderGlobals.h>
 #include <gssmraytracer/utils/Color.h>
-#include <iostream>
-#include <gssmraytracer/lights/Light.h>
+#include <gssmraytracer/utils/Camera.h>
+#include <gssmraytracer/utils/Scene.h>
+#include <gssmraytracer/utils/Color.h>
+
+#include "gssmraytracer/lights/Light.h"
 #include "gssmraytracer/lights/PointLight.h"
 #include "gssmraytracer/lights/DirectionLight.h"
 
 #include "gssmraytracer/shaders/LambertianShader.h"
 #include "gssmraytracer/shaders/CheckeredShader.h"
+#include <gssmraytracer/shaders/Shader.h>
+
+#include <gssmraytracer/math/Vector.h>
+
+#include <iostream>
+#include <memory>
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
