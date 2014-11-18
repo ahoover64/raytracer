@@ -12,7 +12,7 @@ class and replace the hardcoded information with your team's implementation.
 *****************************************************/
 #ifndef __LAMBERTIANSHADER_H__
 #define __LAMBERTIANSHADER_H__
-#include <gssmraytracer/utils/Shader.h>
+#include "gssmraytracer/shaders/Shader.h"
 #include <gssmraytracer/utils/Color.h>
 #include <memory>
 

@@ -1,6 +1,6 @@
 #ifndef __CHECKEREDSHADER_H__
 #define __CHECKEREDSHADER_H__
 
-#include ""
+#include "gssmraytracer/shaders/Shader.h"
 
 #endif

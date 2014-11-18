@@ -1,6 +1,6 @@
 #ifndef __NORMALSHADER_H__
 #define __NORMALSHADER_H__
-#include <gssmraytracer/utils/Shader.h>
+#include "gssmraytracer/shaders/Shader.h"
 #include <gssmraytracer/utils/Color.h>
 #include <memory>
 

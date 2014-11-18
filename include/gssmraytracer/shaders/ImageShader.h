@@ -1,7 +1,7 @@
 #ifndef __IMAGESHADER_H__
 #define __IMAGESHADER_H__
 
-#include <gssmraytracer/utils/Shader.h>
+#include "gssmraytracer/shaders/Shader.h"
 #include <gssmraytracer/utils/Color.h>
 #include <gssmraytracer/utils/Image.h>
 #include <memory>

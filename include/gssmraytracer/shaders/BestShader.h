@@ -1,6 +1,6 @@
 #ifndef __BESTSHADER_H__
 #define __BESTSHADER_H__
-#include <gssmraytracer/utils/Shader.h>
+#include <gssmraytracer/shaders/Shader.h>
 #include <gssmraytracer/utils/Color.h>
 #include <memory>
 
