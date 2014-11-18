@@ -16,7 +16,7 @@ DirectionLight::DirectionLight() : Light(utils::Color(), 1.f), mImpl(new Impl) {
 DirectionLight::DirectionLight(const utils::Color &c, float intensity, const geometry::Plane &plane, const math::Vector &dir) :
                                 Light(c, intensity), mImpl(new Impl) {
     mImpl->plane = plane;
-    mImpl->direction = dir;
+    mImpl->direction = dir.normalize();
 }
 
 bool DirectionLight::hit(const geometry::DifferentialGeometry &dg) const {
