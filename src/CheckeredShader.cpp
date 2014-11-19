@@ -24,5 +24,5 @@ CheckeredShader::CheckeredShader(const utils::Color &c1, const utils::Color &c2,
 }
 
 utils::Color CheckeredShader::shade(const geometry::DifferentialGeometry &dg) const {
-  return utils::Color(0,0,0,1);
+  return utils::Color(1.f,.5f,0,1);
 }
