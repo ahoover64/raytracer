@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <memory>
-//#include <omp.h>
+#include <omp.h>
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
@@ -146,12 +146,12 @@ int main(int argc, char* argv[]) {
     Scene &scene = Scene::getInstance();
 
     std::shared_ptr<Shader> shader(new LambertianShader(Color(0.f, 1.f, 0.f, 1.f)));
-    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 5.f, 10.f, 1.f, .5f));
+    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 5.f, 5.f, 1.f, .5f));
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
     std::shared_ptr<Shader> shader3(new CheckeredShader());
-    std::shared_ptr<Plane> plane(new Plane(Point(0.f,-15.f,0.f), Vector(0.f,1.f,0.f)));
+    std::shared_ptr<Plane> plane(new Plane(Vector(0.f,-15.f,0.f), Vector(0.f,1.f,0.f)));
 
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
@@ -166,7 +166,8 @@ int main(int argc, char* argv[]) {
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
 
-    //#pragma omp parallel for
+    set_num_threads(8);
+    #pragma omp parallel for
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
@@ -180,7 +181,7 @@ int main(int argc, char* argv[]) {
     	     std::shared_ptr<DifferentialGeometry> dg;
 
     	     if(scene.hit(ray, t, dg, p)) {
-    		       color = color + p->shade(dg);
+    		       color = color + p->shade(dg, 0);
     	     }
     	     else {
     		       color = color + Color(1, 1, 1, 1);

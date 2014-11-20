@@ -40,7 +40,7 @@ LambertianShader& LambertianShader::operator=(const LambertianShader &other) {
   }
   return *this;
 }
-Color LambertianShader::shade(const geometry::DifferentialGeometry &dg) const {
+Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
 
   // initialize the return color for the shader to black
   Color shadeColor(0,0,0,1);

@@ -8,7 +8,7 @@ namespace gssmraytracer {
 
     NormalShader::NormalShader() : Shader() {}
 
-    Color NormalShader::shade(const geometry::DifferentialGeometry &dg) const {
+    Color NormalShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
                      return Color(dg.nn.x(), dg.nn.y(), dg.nn.z(), 1);
                    }
   }

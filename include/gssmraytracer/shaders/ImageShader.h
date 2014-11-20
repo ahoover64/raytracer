@@ -12,7 +12,7 @@ namespace gssmraytracer {
     public:
       ImageShader(const Image &image);
       ImageShader& operator=(const ImageShader &);
-      Color shade(const geometry::DifferentialGeometry &dg) const;
+      Color shade(const geometry::DifferentialGeometry &dg, int bounce_num) const;
 
     private:
       class Impl;

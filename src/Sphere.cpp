@@ -253,6 +253,7 @@ namespace gssmraytracer {
                                 mImpl->o2w(dndu),
                                 mImpl->o2w(dndv),
                                 u, v, this));
+      dg.dir = ws_ray.dir();
       dg = dg_temp;
 
        return true;

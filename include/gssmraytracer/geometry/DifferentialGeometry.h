@@ -32,6 +32,7 @@ namespace gssmraytracer {
       Normal nn;
       float u, v;
       math::Vector dpdu, dpdv;
+      math::Vector dir;
       Normal dndu, dndv;
       const Shape *shape;
     private:

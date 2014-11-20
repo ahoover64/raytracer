@@ -10,7 +10,7 @@ namespace gssmraytracer {
     public:
       CheckeredShader();
       CheckeredShader(const utils::Color &c1, const utils::Color &c2, float side_length);
-      utils::Color shade(const geometry::DifferentialGeometry &dg) const;
+      utils::Color shade(const geometry::DifferentialGeometry &dg, int bounce_num) const;
     private:
       class Impl;
       std::shared_ptr<Impl> mImpl;

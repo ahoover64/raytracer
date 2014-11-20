@@ -41,6 +41,7 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry:
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt()) {
     dg->nn = mImpl->norm;
     dg->p = ws_ray(tHit);
+    dg->dir = ws_ray.dir()
     //dg->u = os_ray(tHit);
     //dg->v = os_ray(tHit);
     return true;
