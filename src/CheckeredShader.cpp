@@ -23,6 +23,6 @@ CheckeredShader::CheckeredShader(const utils::Color &c1, const utils::Color &c2,
   mImpl->square_side = side_length;
 }
 
-utils::Color CheckeredShader::shade(const geometry::DifferentialGeometry &dg) const {
+utils::Color CheckeredShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
   return utils::Color(1.f,.5f,0,1);
 }

@@ -127,7 +127,6 @@ int main(int argc, char* argv[]) {
     clf.usage("-h");
 
     Image image(width, height);
-    //Camera camera(Point(-5,0,-40),Vector(0,0,-1),Vector(0,1,0));
 
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
     camera.setAspectRatio((float) width / height);
@@ -187,14 +186,11 @@ int main(int argc, char* argv[]) {
     		       color = color + Color(1, 1, 1, 1);
     	     }
         }
-        //std::cout << color.red << ", " << color.green << ", " << color.blue << ", " << color.alpha << std::endl;
         image.setPixel(r, c, color / (float) samp_size);
       }
 	  }
 
     RenderGlobals::getInstance().setImage(image);
-
-    //Image image3 = RenderGlobals::getInstance().getImage();
     image.write("test.png");
 
 
