@@ -43,8 +43,8 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
   math::Vector dir = dg.dir;
   math::Vector normal(dg.nn.x(), dg.nn.y(), dg.nn.z());
   normal.normalize();
+  int next_bounce = bounce_num + 1;
   if(bounce_num < mImpl->MAX_BOUNCE) {
-    int next_bounce = bounce_num + 1;
 
     // REFLECTION SET UP
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
@@ -57,13 +57,13 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
     std::shared_ptr<geometry::Primitive> p_refr;
     utils::Ray refr(dg.p, (mImpl->n*dir + (mImpl->n*(dir.dot(normal))
                     - sqrt(1 - mImpl->n*mImpl->n*(1 - (dir.dot(normal))*
-                    (dir.dot(normal)))))*normal);
+                    (dir.dot(normal)))))*normal));
     float thit_refr;
     if(mImpl->refl_w > 0.f && utils::Scene::getInstance().hit(refl, thit_refl, dg_refl, p_refl)) {
-      c_refl = p_refl->shade(*dg_refl, next_bounce);
+      c_refl = p_refl->shade(dg_refl, next_bounce);
     }
     if(mImpl->refr_w > 0.f && utils::Scene::getInstance().hit(refr, thit_refr, dg_refr, p_refr)) {
-      c_refr = p_refr->shade(*dg_refr, next_bounce);
+      c_refr = p_refr->shade(dg_refr, next_bounce);
     }
   }
   c_lamb = LambertianShader::shade(dg, next_bounce);
