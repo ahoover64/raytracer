@@ -163,8 +163,8 @@ int main(int argc, char* argv[]) {
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
 
-    omp_set_num_threads(4);
-    #pragma omp parallel for
+    //omp_set_num_threads(4);
+    //#pragma omp parallel for
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
