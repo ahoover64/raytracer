@@ -50,7 +50,7 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
     std::shared_ptr<geometry::Primitive> p_refl;
     utils::Ray refl(dg.p, dir - 2*(dir.dot(normal))*normal);
-    refr.setMint(0.05);
+    refl.setMint(0.05);
     float thit_refl;
 
     // REFRACTION SET UP
