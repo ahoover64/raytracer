@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <memory>
-#include <omp.h>
+//#include <omp.h>
 
 using namespace gssmraytracer::utils;
 using namespace gssmraytracer::geometry;
