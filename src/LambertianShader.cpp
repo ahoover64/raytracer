@@ -79,17 +79,14 @@ Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int boun
 
     // this computes the cosine of the angle between the light vector
     // and the geometry normal
-    float shadeAngle = light_vec.normalized().dot(dg.nn);
+    float shadeAngle = abs(light_vec.normalized().dot(dg.nn));
 
-    // if the angle is greater than 0, do the lambertian shading
-    if (shadeAngle < 0) {
-      // add the diffuse (matte) lighting to the ambient lighting based on
-      // the intensity and the falloff factor based on the distance
-      float factor = -1*shadeAngle*light->intensity()/fall_off;
-      shadeColor.red += mImpl->color.red*factor;
-      shadeColor.green += mImpl->color.green*factor;
-      shadeColor.blue += mImpl->color.blue*factor;
-    }
+    // add the diffuse (matte) lighting to the ambient lighting based on
+    // the intensity and the falloff factor based on the distance
+    float factor = -1*shadeAngle*light->intensity()/fall_off;
+    shadeColor.red += mImpl->color.red*factor;
+    shadeColor.green += mImpl->color.green*factor;
+    shadeColor.blue += mImpl->color.blue*factor;
   }
 
    return shadeColor;
