@@ -45,23 +45,7 @@ Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int boun
   // initialize the return color for the shader to black
   Color shadeColor(0,0,0,1);
 
-  /************************************************************************/
-  // hardcoded light info in the shader
-  // this implementation should be done in the light object
-
   std::shared_ptr<lights::Light> light(new lights::PointLight());
-
-  // no light falloff based on distance (defaulted to no falloff)
-//      float distanceVal_no_falloff = 1.0f;
-
-  // linear light falloff based on distance
-//      float distanceVal_linear = (light_vec.length());
-
-  // quadratic light falloff based on distance
-//      float distanceVal_quadratic = (light_vec.length() * light_vec.length());
-
-  /************************************************************************/
-
 
   // ambient lighting - faking global illumination with constant
   // low color value
@@ -69,20 +53,12 @@ Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int boun
   shadeColor.green = mImpl->color.green * 0.2f;
   shadeColor.blue = mImpl->color.blue * 0.2f;
 
-  // This implementation uses the singleton of the scene to see if we
-  // hit any objects.  Note that we do not need to pass in the Scene as
-  // an argument since a singleton is in the global namespace,
-  // essentially, a global class where there is only one instance)
   if (Scene::getInstance().hitLight(dg, light)) { // if no objects in the way, do lighting
-    math::Vector light_vec = light->lightDir(dg); // CHECK FOR POINT LIGHT
+    math::Vector light_vec = light->lightDir(dg);
     float fall_off = (light_vec.length() * light_vec.length());
 
-    // this computes the cosine of the angle between the light vector
-    // and the geometry normal
     float shadeAngle = abs(light_vec.normalized().dot(dg.nn));
 
-    // add the diffuse (matte) lighting to the ambient lighting based on
-    // the intensity and the falloff factor based on the distance
     float factor = -1*shadeAngle*light->intensity()/fall_off;
     shadeColor.red += mImpl->color.red*factor;
     shadeColor.green += mImpl->color.green*factor;
