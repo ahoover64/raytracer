@@ -37,9 +37,9 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
 }
 
 utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
-  utils::Color c_refl = mImpl->color;
-  utils::Color c_refr = mImpl->color;
-  utils::Color c_lamb = mImpl->color;
+  utils::Color c_refl(1,1,1,1);
+  utils::Color c_refr(1,1,1,1);
+  utils::Color c_lamb(1,1,1,1);
   math::Vector dir = dg.dir;
   math::Vector normal(dg.nn.x(), dg.nn.y(), dg.nn.z());
   normal.normalize();
@@ -49,7 +49,7 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
     // REFLECTION SET UP
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
     std::shared_ptr<geometry::Primitive> p_refl;
-    utils::Ray refl(dg.p, dir - 2*(dir.dot(normal))*normal);
+    utils::Ray refl(dg.p, dir - abs(2*(dir.dot(normal)))*normal);
     refl.setMint(0.05);
     float thit_refl;
 
