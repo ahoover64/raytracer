@@ -10,7 +10,7 @@ namespace gssmraytracer {
     class RefShader : public shaders::LambertianShader {
     public:
       RefShader();
-      RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight,
+      RefShader(const utils::Color &col, int max_bounces, float lamb_weight, float reflection_weight,
                 float refraction_weight, float ref_index);
       utils::Color shade(const geometry::DifferentialGeometry &dg, int bounce_num) const;
     private:

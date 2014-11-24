@@ -20,7 +20,7 @@ Plane::Plane(const math::Transform &pos, const math::Vector &v1, const math::Vec
                     Shape(pos), mImpl(new Impl) {
   mImpl->q1 = v1.normalized();
   mImpl->q2 = (v2.normalized() - (v1.dot(v2)/v1.dot(v1))*v1).normalized();
-  mImpl->norm = mImpl->q1.cross(mImpl->q2);
+  mImpl->norm = (mImpl->q1.cross(mImpl->q2)).normalized();
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
@@ -36,7 +36,6 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry::DifferentialGeometry> &dg) const {
   math::Transform t = Shape::worldToObjectSpace();
   utils::Ray os_ray = t(ws_ray);
-  //float d = mImpl->norm.x() * mImpl->pt.x() + mImpl->norm.y() * mImpl->pt.y() + mImpl->norm.z() * mImpl->pt.z();
   if(fabs(mImpl->norm.dot(os_ray.dir())) < 0.01)
     return false;
   tHit = (0 - os_ray.origin().x()*mImpl->norm.x() - os_ray.origin().z()*mImpl->norm.y()

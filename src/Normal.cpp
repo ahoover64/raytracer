@@ -9,6 +9,12 @@ namespace gssmraytracer {
 
     };
 
+    Normal::Normal() : mImpl(new Impl) {
+      mImpl->vec.x = 0;
+      mImpl->vec.y = 0;
+      mImpl->vec.z = 0;
+    }
+
     Normal::Normal(const math::Vector &vec) : mImpl(new Impl) {
       mImpl->vec.x = vec.x();
       mImpl->vec.y = vec.y();

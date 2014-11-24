@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
-    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0,0,0,1), Color(1,1,1,1), 5.f));
+    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 5.f));
     std::shared_ptr<Plane> plane(new Plane(transform3, Vector(0.f,0.f,-1.f), Vector(1.f,0.f,0.f)));
 
     //Make the prmatives

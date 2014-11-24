@@ -26,7 +26,7 @@ RefShader::RefShader() : LambertianShader(utils::Color(0,0,0,1)), mImpl(new Impl
   mImpl->color = utils::Color(0,0,0,1);
 }
 
-RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float reflection_weight,
+RefShader::RefShader(const utils::Color &col, int max_bounces, float lamb_weight, float reflection_weight,
                     float refraction_weight, float ref_index) : LambertianShader(col), mImpl(new Impl) {
   mImpl->MAX_BOUNCE = max_bounces;
   mImpl->lamb_w = lamb_weight;

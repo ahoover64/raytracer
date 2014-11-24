@@ -17,6 +17,7 @@ namespace gssmraytracer {
        * u and v are the u v coordinates
        * sh holds a pointer to a shape
        */
+      DifferentialGeometry();
       DifferentialGeometry(
             const Point &P,
             const math::Vector &dpdu, const math::Vector &dpdv,

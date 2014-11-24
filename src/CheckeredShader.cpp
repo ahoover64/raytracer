@@ -17,7 +17,7 @@ CheckeredShader::CheckeredShader() : mImpl(new Impl) {
   mImpl->square_side = 5.f;
 }
 
-CheckeredShader::CheckeredShader(const utils::Color &c1, const utils::Color &c2, float side_length) {
+CheckeredShader::CheckeredShader(const utils::Color &c1, const utils::Color &c2, float side_length) : mImpl(new Impl) {
   mImpl->color1 = c1;
   mImpl->color2 = c2;
   mImpl->square_side = side_length;

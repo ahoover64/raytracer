@@ -2,6 +2,9 @@
 
 namespace gssmraytracer {
   namespace geometry {
+    DifferentialGeometry::DifferentialGeometry() : p(Point(0,0,0)), nn(Normal(0,0,0)), u(0.f), v(0.f), dpdu(math::Vector(0,0,0))
+                                            , dpdv(math::Vector(0,0,0)), dir(math::Vector(0,0,0)), dndu(Normal(0,0,0)), dndv(Normal(0,0,0)){}
+
     DifferentialGeometry::DifferentialGeometry(
           const Point &P,
           const math::Vector &DPDU, const math::Vector &DPDV,
