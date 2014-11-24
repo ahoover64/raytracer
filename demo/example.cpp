@@ -136,22 +136,23 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
     //std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 5.f, pl, vec));
 
-    Transform transform1, transform2;
+    Transform transform1, transform2, transform3;
     Vector position(-5.0,0.0,0.0);
     Vector position2(10.,-5.0,-5.0);
+    Vector position3(0.f,-15.0,0.f);
     transform1.translate(position);
     transform2.translate(position2);
+    transform3.translate(position3);
 
     Scene &scene = Scene::getInstance();
 
     std::shared_ptr<Shader> shader(new RefShader(Color(0.f, 1.f, 0.f, 1.f), 5, 1.f, .5f, 0.f, .5f));
-    //std::shared_ptr<Shader> shader2(new LambertianShader(Color(0.f,.5f,.5f,1.f)));
     std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 1.f, .25f, 0.f, .5f));
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
-    std::shared_ptr<Shader> shader3(new CheckeredShader());
-    std::shared_ptr<Plane> plane(new Plane(Vector(0.f,-15.f,0.f), Vector(0.f,1.f,0.f)));
+    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0,0,0,1), Color(1,1,1,1), 5.f));
+    std::shared_ptr<Plane> plane(new Plane(transform3, Vector(0.f,0.f,-1.f), Vector(1.f,0.f,0.f)));
 
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
@@ -161,7 +162,7 @@ int main(int argc, char* argv[]) {
 
     scene.addPrimitive(prim1);
     scene.addPrimitive(prim2);
-    //scene.addPrimitive(prim3);
+    scene.addPrimitive(prim3);
     scene.addLight(light);
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL

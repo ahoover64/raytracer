@@ -14,7 +14,7 @@ namespace gssmraytracer {
     class Plane : public Shape {
     public:
       Plane();
-      Plane(const math::Vector &pos, const math::Vector &norm);
+      Plane(const math::Transform &pos, const math::Vector &v1, const math::Vector &v2);
       bool hit(const utils::Ray &ws_ray, float &tHit) const;
       bool hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<DifferentialGeometry> &dg) const;
     private:

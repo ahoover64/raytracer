@@ -6,6 +6,8 @@ using namespace gssmraytracer::geometry;
 class Plane::Impl {
 public:
   math::Vector norm;
+  math::Vector q1;
+  math::Vector q2;
   geometry::Point pt;
 };
 
@@ -14,8 +16,11 @@ Plane::Plane() : Shape(math::Transform()), mImpl(new Impl){
   mImpl->pt = geometry::Point();
 }
 
-Plane::Plane(const math::Vector &pos, const math::Vector &normal) : Shape(math::Transform()), mImpl(new Impl) {
-  mImpl->norm = normal.normalized();
+Plane::Plane(const math::Transform &pos, const math::Vector &v1, const math::Vector &v2) :
+                    Shape(pos), mImpl(new Impl) {
+  mImpl->q1 = v1.normalized();
+  mImpl->q2 = (v2.normalized() - (v1.dot(q1)/q1.dot(q1))*q1).normalized();
+  mImpl->norm = q1.coss(q2);
   mImpl->pt = geometry::Point(pos);
 }
 
@@ -34,7 +39,7 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry:
   math::Transform t = Shape::worldToObjectSpace();
   utils::Ray os_ray = t(ws_ray);
   //float d = mImpl->norm.x() * mImpl->pt.x() + mImpl->norm.y() * mImpl->pt.y() + mImpl->norm.z() * mImpl->pt.z();
-  if(mImpl->norm.dot(os_ray.dir()))
+  if(fabs(mImpl->norm.dot(os_ray.dir())) < 0.01)
     return false;
   tHit = (0 - os_ray.origin().x()*mImpl->norm.x() - os_ray.origin().z()*mImpl->norm.y()
             - os_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(os_ray.dir());
@@ -42,8 +47,15 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry:
     dg->nn = mImpl->norm;
     dg->p = ws_ray(tHit);
     dg->dir = ws_ray.dir();
-    //dg->u = os_ray(tHit);
-    //dg->v = os_ray(tHit);
+
+    // FIND WHERE IT HIT
+    float q12 = mImpl->q1.dot(mImpl->q1);
+    float q22 = mImpl->q2.dot(mImpl->q2);
+    math::Vector vec(geometry::Point(0,0,0), dg->p);
+    float v_dot_q1 = vec.dot(q1);
+    float v_dot_q2 = vec.dot(q2);
+    dg->u = q22 * v_dot_q1;
+    dg->v = q12 * v_dot_q2;
     return true;
   }
   return false;
