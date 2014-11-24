@@ -24,7 +24,7 @@ CheckeredShader::CheckeredShader(const utils::Color &c1, const utils::Color &c2,
 }
 
 utils::Color CheckeredShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
-  if(((int) dg.u / mImpl->square_side) % 2 == 0 && ((int) dg.v / mImpl->square_side) % 2 == 0) {
+  if(((int) (dg.u / mImpl->square_side)) % 2 == 0 && ((int) (dg.v / mImpl->square_side)) % 2 == 0) {
     return mImpl->color1;
   }
   return mImpl->color2;
