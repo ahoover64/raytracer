@@ -19,15 +19,13 @@ Plane::Plane() : Shape(math::Transform()), mImpl(new Impl){
 Plane::Plane(const math::Transform &pos, const math::Vector &v1, const math::Vector &v2) :
                     Shape(pos), mImpl(new Impl) {
   mImpl->q1 = v1.normalized();
-  mImpl->q2 = (v2.normalized() - (v1.dot(q1)/q1.dot(q1))*q1).normalized();
-  mImpl->norm = q1.coss(q2);
-  mImpl->pt = geometry::Point(pos);
+  mImpl->q2 = (v2.normalized() - (v1.dot(v2)/v1.dot(v1))*v1).normalized();
+  mImpl->norm = mImpl->q1.cross(mImpl->q2);
 }
 
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
   math::Transform t = Shape::worldToObjectSpace();
   utils::Ray os_ray = t(ws_ray);
-  //float d = mImpl->norm.x() * mImpl->pt.x() + mImpl->norm.y() * mImpl->pt.y() + mImpl->norm.z() * mImpl->pt.z();
   tHit = (0 - os_ray.origin().x()*mImpl->norm.x() - os_ray.origin().z()*mImpl->norm.y()
             - os_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(ws_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt())
@@ -52,8 +50,8 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry:
     float q12 = mImpl->q1.dot(mImpl->q1);
     float q22 = mImpl->q2.dot(mImpl->q2);
     math::Vector vec(geometry::Point(0,0,0), dg->p);
-    float v_dot_q1 = vec.dot(q1);
-    float v_dot_q2 = vec.dot(q2);
+    float v_dot_q1 = vec.dot(mImpl->q1);
+    float v_dot_q2 = vec.dot(mImpl->q2);
     dg->u = q22 * v_dot_q1;
     dg->v = q12 * v_dot_q2;
     return true;
