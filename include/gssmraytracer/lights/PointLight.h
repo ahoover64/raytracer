@@ -17,6 +17,7 @@ namespace gssmraytracer {
     PointLight ();
     PointLight (utils::Color c, float intensity, geometry::Point p);
     bool hit (const geometry::DifferentialGeometry &dg) const;
+    bool hit(const geometry::DifferentialGeometry &dg, float &intensity) const;
     math::Vector lightDir(const geometry::DifferentialGeometry &dg) const;
 
   private:

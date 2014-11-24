@@ -23,6 +23,11 @@ bool DirectionLight::hit(const geometry::DifferentialGeometry &dg) const {
   return true;
 }
 
+bool DirectionLight::hit(const geometry::DifferentialGeometry &dg, float &intensity) const {
+  intensity = 100.f;
+  return true;
+}
+
 math::Vector DirectionLight::lightDir(const geometry::DifferentialGeometry &dg) const {
   return mImpl->direction;
 }

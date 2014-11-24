@@ -18,6 +18,7 @@ namespace gssmraytracer {
 		float intensity() const;
 		utils::Color color() const;
 		virtual bool hit(const geometry::DifferentialGeometry &dg) const = 0;
+		virtual bool hit(const geometry::DifferentialGeometry &dg, float &intensity) const = 0;
 		virtual math::Vector lightDir(const geometry::DifferentialGeometry &dg) const = 0;
 
 	private:

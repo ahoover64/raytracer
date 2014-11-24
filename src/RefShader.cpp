@@ -37,9 +37,9 @@ RefShader::RefShader(utils::Color col, int max_bounces, float lamb_weight, float
 }
 
 utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int bounce_num) const {
-  utils::Color c_refl(1,1,1,1);
-  utils::Color c_refr(1,1,1,1);
-  utils::Color c_lamb(1,1,1,1);
+  utils::Color c_refl = mImpl->color;
+  utils::Color c_refr = mImpl->color;
+  utils::Color c_lamb = mImpl->color;
   math::Vector dir = dg.dir;
   math::Vector normal(dg.nn.x(), dg.nn.y(), dg.nn.z());
   normal.normalize();
@@ -49,7 +49,7 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
     // REFLECTION SET UP
     std::shared_ptr<geometry::DifferentialGeometry> dg_refl;
     std::shared_ptr<geometry::Primitive> p_refl;
-    utils::Ray refl(dg.p, dir - abs(2*(dir.dot(normal)))*normal);
+    utils::Ray refl(dg.p, (dir - (2*(dir.dot(normal)))*normal).normalized());
     refl.setMint(0.05);
     float thit_refl;
 
@@ -61,17 +61,17 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
                     (dir.dot(normal)))))*normal));
     refr.setMint(0.05);
     float thit_refr;
-    if(mImpl->refl_w > 0.f && utils::Scene::getInstance().hit(refl, thit_refl, dg_refl, p_refl)) {
+    if(mImpl->refl_w > .05f && utils::Scene::getInstance().hit(refl, thit_refl, dg_refl, p_refl)) {
       c_refl = p_refl->shade(dg_refl, next_bounce);
     }
-    if(mImpl->refr_w > 0.f && utils::Scene::getInstance().hit(refr, thit_refr, dg_refr, p_refr)) {
+    if(mImpl->refr_w > .05f && utils::Scene::getInstance().hit(refr, thit_refr, dg_refr, p_refr)) {
       c_refr = p_refr->shade(dg_refr, next_bounce);
     }
   }
-  if (mImpl->lamb_w > 0.f) {
+  if (mImpl->lamb_w > .05f) {
     c_lamb = LambertianShader::shade(dg, next_bounce);
   }
   utils::Color avg_color = (c_refl*mImpl->refl_w + c_refr*mImpl->refr_w
-                         + c_lamb*mImpl->lamb_w) / (mImpl->refl_w+mImpl->refr_w+mImpl->lamb_w);
+                         + c_lamb*mImpl->lamb_w);// / (mImpl->refl_w+mImpl->refr_w+mImpl->lamb_w);
   return avg_color;
 }

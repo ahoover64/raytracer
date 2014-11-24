@@ -28,6 +28,18 @@ namespace gssmraytracer {
     return true;
   }
 
+  bool PointLight::hit(const geometry::DifferentialGeometry &dg, float &intensity) const {
+    math::Vector v(mImpl->location, dg.p);
+    utils::Ray ray_to_point(mImpl->location, v.normalized());
+    ray_to_point.setMint(0);
+    ray_to_point.setMaxt(v.length() - 0.05);
+    if(utils::Scene::getInstance().hit(ray_to_point)) {
+      return false;
+    }
+    intensity = Light::intensity() / v.length();
+    return true;
+  }
+
   math::Vector PointLight::lightDir(const geometry::DifferentialGeometry &dg) const {
     return math::Vector(mImpl->location, dg.p);
   }

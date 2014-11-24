@@ -19,6 +19,7 @@ namespace gssmraytracer {
       bool hit(const Ray &ws_ray, float &hit_time, std::shared_ptr<geometry::DifferentialGeometry> & dg,
         std::shared_ptr<geometry::Primitive> &prim) const;
       bool hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<lights::Light> &lite) const;
+      float totalLight(const geometry::DifferentialGeometry &dg) const;
       ~Scene();
     private:
       Scene();

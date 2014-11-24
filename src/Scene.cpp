@@ -112,6 +112,18 @@ namespace gssmraytracer {
           return false;
     }
 
+    float Scene::totalLight(const geometry::DifferentialGeometry &dg) const {
+      float total_light = 0;
+      float inten;
+      for (std::vector<std::shared_ptr<lights::Light>>::const_iterator iter =
+        mImpl->lights.begin(); iter != mImpl->lights.end(); ++iter) {
+        if ((*iter)->hit(dg, inten)) {
+          total_light += inten;
+        }
+      }
+      return total_light;
+    }
+
 
   }
 }

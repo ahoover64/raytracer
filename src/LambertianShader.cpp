@@ -28,6 +28,7 @@ public:
 LambertianShader::LambertianShader(const Color &color) : mImpl(new Impl) {
   mImpl->color = color;
 }
+
 LambertianShader::LambertianShader(const LambertianShader &other) :
                                         Shader(),
                                         mImpl(new Impl) {
@@ -57,12 +58,14 @@ Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int boun
     math::Vector light_vec = light->lightDir(dg);
     float fall_off = (light_vec.length() * light_vec.length());
 
-    float shadeAngle = abs(light_vec.normalized().dot(dg.nn));
+    float shadeAngle = (light_vec.normalized().dot(dg.nn));
 
-    float factor = -1*shadeAngle*light->intensity()/fall_off;
-    shadeColor.red += mImpl->color.red*factor;
-    shadeColor.green += mImpl->color.green*factor;
-    shadeColor.blue += mImpl->color.blue*factor;
+    if(shadeAngle < 0) {
+      float factor = -1*shadeAngle*light->intensity()/fall_off;
+      shadeColor.red += mImpl->color.red*factor;
+      shadeColor.green += mImpl->color.green*factor;
+      shadeColor.blue += mImpl->color.blue*factor;
+    }
   }
 
    return shadeColor;

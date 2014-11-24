@@ -15,6 +15,7 @@ namespace gssmraytracer {
       DirectionLight();
       DirectionLight(const utils::Color &c, float intensity, const geometry::Plane &plane, const math::Vector &dir);
       bool hit(const geometry::DifferentialGeometry &dg) const;
+      bool hit(const geometry::DifferentialGeometry &dg, float &intensity) const;
       math::Vector lightDir(const geometry::DifferentialGeometry &dg) const;
     private:
       class Impl;
