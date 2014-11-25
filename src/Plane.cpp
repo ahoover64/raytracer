@@ -36,23 +36,24 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry::DifferentialGeometry> &dg) const {
   math::Transform t = Shape::worldToObjectSpace();
   utils::Ray os_ray = t(ws_ray);
-  if(fabs(mImpl->norm.dot(os_ray.dir())) < 0.01)
+  if(fabs(mImpl->norm.dot(os_ray.dir())) == 0.f)
     return false;
-  tHit = (0 - os_ray.origin().x()*mImpl->norm.x() - os_ray.origin().z()*mImpl->norm.y()
-            - os_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(os_ray.dir());
+  tHit = -1*(ws_ray.origin().x()*mImpl->norm.x() + ws_ray.origin().z()*mImpl->norm.y()
+            + ws_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(os_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt()) {
-    dg->nn = mImpl->norm;
-    dg->p = ws_ray(tHit);
-    dg->dir = ws_ray.dir();
-
     // FIND WHERE IT HIT
+    Point hit_pt = ws_ray(tHit);
     float q12 = mImpl->q1.dot(mImpl->q1);
     float q22 = mImpl->q2.dot(mImpl->q2);
-    math::Vector vec(geometry::Point(0,0,0), dg->p);
+    math::Vector vec(geometry::Point(0,0,0), hit_pt);
     float v_dot_q1 = vec.dot(mImpl->q1);
     float v_dot_q2 = vec.dot(mImpl->q2);
-    dg->u = q22 * v_dot_q1;
-    dg->v = q12 * v_dot_q2;
+    float uu = q12 * v_dot_q2;
+    float vv = q22 * v_dot_q1;
+
+    std::shared_ptr<DifferentialGeometry> dg_temp(new DifferentialGeometry(hit_pt, mImpl->q1, mImpl->q2, Normal(), Normal(), uu, vv, this));
+    dg_temp->dir = ws_ray.dir();
+    dg = dg_temp;
     return true;
   }
   return false;

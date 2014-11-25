@@ -137,8 +137,8 @@ int main(int argc, char* argv[]) {
     //std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 5.f, pl, vec));
 
     Transform transform1, transform2, transform3;
-    Vector position(-5.0,0.0,0.0);
-    Vector position2(10.,-5.0,-5.0);
+    Vector position(-5.0,0.0,5.0);
+    Vector position2(10.,-5.0,0.0);
     Vector position3(0.f,-15.0,0.f);
     transform1.translate(position);
     transform2.translate(position2);
@@ -151,8 +151,8 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
 
-    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 5.f));
-    std::shared_ptr<Plane> plane(new Plane(transform3, Vector(0.f,0.f,-1.f), Vector(1.f,0.f,0.f)));
+    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 60.f));
+    std::shared_ptr<Plane> plane(new Plane(transform3, Vector(0.5f,0.f,.5f), Vector(.5f,0.f,-.5f)));
 
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
     		       color = color + p->shade(dg, 0);
     	     }
     	     else {
-    		       color = color + Color(1, 1, 1, 1);
+    		       color = color + Color(0,0,0,1);
     	     }
         }
         image.setPixel(r, c, color / (float) samp_size);
