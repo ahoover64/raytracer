@@ -152,10 +152,10 @@ int main(int argc, char* argv[]) {
 
     Scene &scene = Scene::getInstance();
 
-    std::shared_ptr<Shader> shader(new RefShader(Color(0.f, 1.f, 0.f, 1.f), 5, 1.f, .5f, 0.f, .5f));
-    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 1.f, .3f, 0.f, .5f));
-    std::shared_ptr<Shader> shader3(new RefShader(Color(1.f, 0.f, 0.f, 1.f), 5, 1.f, .2f, 0.f, .5f));
-    std::shared_ptr<Shader> shader4(new RefShader(Color(1.f, .5f, 0.f, 1.f), 5, 1.f, .5f, 0.f, .5f));
+    std::shared_ptr<Shader> shader(new RefShader(Color(0.f, 1.f, 0.f, 1.f), 10, 1.f, .5f, 0.f, .5f));
+    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 10, 1.f, .3f, 0.f, .5f));
+    std::shared_ptr<Shader> shader3(new RefShader(Color(1.f, 0.f, 0.f, 1.f), 10, 1.f, .2f, 0.f, .5f));
+    std::shared_ptr<Shader> shader4(new RefShader(Color(1.f, .5f, 0.f, 1.f), 10, 1.f, .5f, 0.f, .5f));
 
     std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
     std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 6.f));
@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
     scene.addPrimitive(prim5);
     scene.addLight(light);
 
-    const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
+    const int samp_size = 64; // SET NUMBER OF SAMPLES PER PIXEL
 
     //omp_set_num_threads(4);
     #pragma omp parallel for
