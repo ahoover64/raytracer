@@ -38,8 +38,8 @@ bool Plane::hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<geometry:
   utils::Ray os_ray = t(ws_ray);
   if(fabs(mImpl->norm.dot(os_ray.dir())) == 0.f)
     return false;
-  tHit = -1*(ws_ray.origin().x()*mImpl->norm.x() + ws_ray.origin().z()*mImpl->norm.y()
-            + ws_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(os_ray.dir());
+  tHit = -1*(os_ray.origin().x()*mImpl->norm.x() + os_ray.origin().z()*mImpl->norm.y()
+            + os_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(os_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt()) {
     // FIND WHERE IT HIT
     Point hit_pt = ws_ray(tHit);

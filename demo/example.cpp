@@ -133,36 +133,51 @@ int main(int argc, char* argv[]) {
     Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
     camera.setAspectRatio((float) width / height);
 
-    std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 250.f, Point(0, 15, 10)));
+    std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 100.f, Point(0, 20, 15)));
     //std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 5.f, pl, vec));
 
-    Transform transform1, transform2, transform3;
-    Vector position(-5.0,0.0,5.0);
-    Vector position2(10.,-5.0,0.0);
-    Vector position3(0.f,-15.0,0.f);
+    Transform transform1, transform2, transform3, transform4, transform5;
+
+    Vector position(-10.0,0.0,5.0);
+    Vector position2(10.,2.5,5.0);
+    Vector position3(0.f,7.5,-5.f);
+    Vector position4(0.0,-2.5,0.0);
+    Vector position5(0.f,-12.5,0.f);
+
     transform1.translate(position);
     transform2.translate(position2);
     transform3.translate(position3);
+    transform4.translate(position4);
+    transform5.translate(position5);
 
     Scene &scene = Scene::getInstance();
 
     std::shared_ptr<Shader> shader(new RefShader(Color(0.f, 1.f, 0.f, 1.f), 5, 1.f, .5f, 0.f, .5f));
-    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 1.f, .25f, 0.f, .5f));
-    std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
-    std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 7.5f));
+    std::shared_ptr<Shader> shader2(new RefShader(Color(0.f, .5f, .5f, 1.f), 5, 1.f, .3f, 0.f, .5f));
+    std::shared_ptr<Shader> shader3(new RefShader(Color(1.f, 0.f, 0.f, 1.f), 5, 1.f, .2f, 0.f, .5f));
+    std::shared_ptr<Shader> shader4(new RefShader(Color(1.f, .5f, 0.f, 1.f), 5, 1.f, .5f, 0.f, .5f));
 
-    std::shared_ptr<Shader> shader3(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 60.f));
-    std::shared_ptr<Plane> plane(new Plane(transform3, Vector(0.5f,0.f,.5f), Vector(.5f,0.f,-.5f)));
+    std::shared_ptr<Sphere> sphere(new Sphere(transform1, 5.0f));
+    std::shared_ptr<Sphere> sphere2(new Sphere(transform2, 6.f));
+    std::shared_ptr<Sphere> sphere3(new Sphere(transform3, 5.0f));
+    std::shared_ptr<Sphere> sphere4(new Sphere(transform4, 2.5f));
+
+    std::shared_ptr<Shader> shader5(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 60.f));
+    std::shared_ptr<Plane> plane(new Plane(transform5, Vector(0.5f,0.f,.5f), Vector(.5f,0.f,-.5f)));
 
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
     std::shared_ptr<Primitive> prim2(new Primitive(sphere2, shader2));
-    std::shared_ptr<Primitive> prim3(new Primitive(plane, shader3));
+    std::shared_ptr<Primitive> prim3(new Primitive(sphere3, shader3));
+    std::shared_ptr<Primitive> prim4(new Primitive(sphere4, shader4));
+    std::shared_ptr<Primitive> prim5(new Primitive(plane, shader5));
 
 
     scene.addPrimitive(prim1);
     scene.addPrimitive(prim2);
     scene.addPrimitive(prim3);
+    scene.addPrimitive(prim4);
+    scene.addPrimitive(prim5);
     scene.addLight(light);
 
     const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL

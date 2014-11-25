@@ -56,7 +56,7 @@ Color LambertianShader::shade(const geometry::DifferentialGeometry &dg, int boun
 
   if (Scene::getInstance().hitLight(dg, light)) { // if no objects in the way, do lighting
     math::Vector light_vec = light->lightDir(dg);
-    float fall_off = (light_vec.length() * light_vec.length());
+    float fall_off = 1.f;
 
     float shadeAngle = (light_vec.normalized().dot(dg.nn));
 
