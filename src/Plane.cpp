@@ -26,6 +26,8 @@ Plane::Plane(const math::Transform &pos, const math::Vector &v1, const math::Vec
 bool Plane::hit(const utils::Ray &ws_ray, float &tHit) const {
   math::Transform t = Shape::worldToObjectSpace();
   utils::Ray os_ray = t(ws_ray);
+  if(fabs(mImpl->norm.dot(os_ray.dir())) == 0.f)
+    return false;
   tHit = (0 - os_ray.origin().x()*mImpl->norm.x() - os_ray.origin().z()*mImpl->norm.y()
             - os_ray.origin().z()*mImpl->norm.z()) / mImpl->norm.dot(ws_ray.dir());
   if(tHit > ws_ray.mint() && tHit < ws_ray.maxt())
