@@ -73,6 +73,6 @@ utils::Color RefShader::shade(const geometry::DifferentialGeometry &dg, int boun
     c_lamb = LambertianShader::shade(dg, next_bounce);
   }
   utils::Color avg_color = (c_refl*mImpl->refl_w + c_refr*mImpl->refr_w
-                         + c_lamb*mImpl->lamb_w);// / (mImpl->refl_w+mImpl->refr_w+mImpl->lamb_w);
+                         + c_lamb*mImpl->lamb_w) / (mImpl->refl_w+mImpl->refr_w+mImpl->lamb_w);
   return avg_color;
 }
