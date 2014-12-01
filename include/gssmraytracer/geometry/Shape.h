@@ -7,6 +7,7 @@
 #include "gssmraytracer/utils/Color.h"
 #include "gssmraytracer/math/Transform.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
+#include "gssmraytracer/geometry/BBox.h"
 
 namespace gssmraytracer {
   namespace geometry {
@@ -47,6 +48,18 @@ namespace gssmraytracer {
 
       //! converts ray from object to world space
       const math::Transform objectToWorldSpace() const;
+
+      //! returns the bounding box of the shape in world space
+      virtual const BBox worldBB() const = 0;
+
+      //! returns the bounding box of the shape in object space
+      virtual const BBox objectBB() const = 0;
+
+      //! converts ray from world to object space
+      const utils::Ray worldToObjectSpace(const utils::Ray &ws_ray) const;
+
+      //! converts ray from object to world space
+      const utils::Ray objectToWorldSpace(const utils::Ray &os_ray) const;
 
     private:
       class Impl;

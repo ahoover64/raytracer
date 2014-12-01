@@ -5,7 +5,7 @@
 #include "gssmraytracer/geometry/Sphere.h"
 #include <algorithm>
 #include <iostream>
-#include <gssmraytracer/geometry/BoundingBox.h>
+#include <gssmraytracer/geometry/BBox.h>
 
 using namespace gssmraytracer::math;
 using namespace gssmraytracer::utils;
@@ -22,7 +22,7 @@ namespace gssmraytracer {
       float thetaMin, thetaMax;
       Transform o2w;
       Transform w2o;
-      BoundingBox bb;
+      BBox bb;
 
       inline bool Quadratic(const float A, const float B,
                             const float C, float *t0, float *t1) {
@@ -150,7 +150,7 @@ namespace gssmraytracer {
       Point phit;
 
       //UNCOMMENT FOR BROKEN BB
-      if(!mImpl->bb.hit(ws_ray))
+      if(!mImpl->bb.intersect(ws_ray))
         return false;
 
       // Transform the ray into object space
@@ -258,6 +258,15 @@ namespace gssmraytracer {
 
        return true;
 
+    }
+
+
+    const geometry::BBox worldBB() const {
+      return geometry::BBox();
+    }
+
+    const geometry::BBox objectBB() const {
+      return mImpl->bb;
     }
 
   }

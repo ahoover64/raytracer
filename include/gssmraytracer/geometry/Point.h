@@ -33,10 +33,13 @@ namespace gssmraytracer {
       //! Returns a new Point which is the sum of a Vector and this point
       Point operator+(const math::Vector &vec) const;
 
+      //! Return a new scaled point
+      Point operator*(const float s) const;
+
       //! Allows for printing on Point in std::cout
       friend std::ostream& operator<<(std::ostream &os, const Point &point);
 
-      cont float operator[](const float index) const;
+      const float operator[](const float index) const;
 
       //! returns the x component of a Point
       const float x() const;

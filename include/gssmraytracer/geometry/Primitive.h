@@ -4,6 +4,7 @@
 #include "gssmraytracer/utils/Ray.h"
 #include "gssmraytracer/geometry/Shape.h"
 #include "gssmraytracer/shaders/Shader.h"
+#include "gssmraytracer/geometry/BBox.h"
 
 namespace gssmraytracer {
   namespace geometry {
@@ -17,6 +18,7 @@ namespace gssmraytracer {
       bool hit(const utils::Ray &ws_ray, float &hit_time,
                 std::shared_ptr<DifferentialGeometry> &dg) const;
       const utils::Color shade(const std::shared_ptr<DifferentialGeometry> &dg, int bounce_num) const;
+      const BBox worldBound() const;
 
     private:
       class Impl;

@@ -17,6 +17,8 @@ namespace gssmraytracer {
       Plane(const math::Transform &pos, const math::Vector &v1, const math::Vector &v2);
       bool hit(const utils::Ray &ws_ray, float &tHit) const;
       bool hit(const utils::Ray &ws_ray, float &tHit, std::shared_ptr<DifferentialGeometry> &dg) const;
+      const geometry::BBox worldBB() const;
+      const geometry::BBox objectBB() const;
     private:
       class Impl;
       std::shared_ptr<Impl> mImpl;
