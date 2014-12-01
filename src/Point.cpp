@@ -41,6 +41,9 @@ namespace gssmraytracer {
       return os;
     }
 
+    const float Point::operator[](const float index) const {
+      return mImpl->vec[index];
+    }
 
     const float Point::x() const {
       return mImpl->vec.x;

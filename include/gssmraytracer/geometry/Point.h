@@ -36,6 +36,8 @@ namespace gssmraytracer {
       //! Allows for printing on Point in std::cout
       friend std::ostream& operator<<(std::ostream &os, const Point &point);
 
+      cont float operator[](const float index) const;
+
       //! returns the x component of a Point
       const float x() const;
 

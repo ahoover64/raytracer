@@ -5,12 +5,14 @@
 #include "gssmraytracer/geometry/Primitive.h"
 #include "gssmraytracer/geometry/DifferentialGeometry.h"
 #include "gssmraytracer/lights/Light.h"
+#include "gssmraytracer/utils/BVHAccel.h"
 
 namespace gssmraytracer {
   namespace utils {
     class Scene {
     public:
       static Scene& getInstance();
+      void init();
       void addPrimitive(const std::shared_ptr<geometry::Primitive> &);
       void addLight(const std::shared_ptr<lights::Light> &lite);
       bool hit(const Ray &ws_ray) const;
@@ -21,6 +23,8 @@ namespace gssmraytracer {
       bool hitLight(const geometry::DifferentialGeometry &dg, std::shared_ptr<lights::Light> &lite) const;
       float totalLight(const geometry::DifferentialGeometry &dg) const;
       ~Scene();
+      const int maxBounceCount() const;
+      void maxBounceCount(const int);
     private:
       Scene();
       Scene(const Scene&);
