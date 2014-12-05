@@ -34,13 +34,13 @@ namespace gssmraytracer {
     }
 
     const utils::Ray Shape::worldToObjectSpace(const utils::Ray &ws_ray) const{
-      utils::Ray os_ray = mImpl->transform(ws_ray);
+      utils::Ray os_ray = mImpl->w2o(ws_ray);
 
       return os_ray;
 
     }
     const utils::Ray Shape::objectToWorldSpace(const utils::Ray &os_ray) const{
-      utils::Ray ws_ray = mImpl->transform.inverse()(os_ray);
+      utils::Ray ws_ray = mImpl->o2w(os_ray);
 
       return ws_ray;
 
