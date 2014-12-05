@@ -1,18 +1,8 @@
-To build: 
+This is the raytracer that we made is CS201 at SCGSSM. It is intended to be used to render simple images.
 
-make
-
-To clean:
-
-make clean
-
-Documentation:
-
-make docs
-
-
-
-
+To be implemented:
+BVHTree
+OBJ file reader
 
 
 
@@ -23,5 +13,3 @@ make
 
 to clean:
 make clean
-
-Be sure to implement the Sphere class
