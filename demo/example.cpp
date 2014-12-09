@@ -179,13 +179,20 @@ int main(int argc, char* argv[]) {
     scene.addPrimitive(prim2);
     scene.addPrimitive(prim3);
     scene.addPrimitive(prim4);
-    scene.addPrimitive(prim5);
+    //scene.addPrimitive(prim5);
     scene.addLight(light);
 
-    const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
+    const int samp_size = 64; // SET NUMBER OF SAMPLES PER PIXEL
+    float x, z, theta;
 
     //omp_set_num_threads(4);
-    #pragma omp parallel for
+  #pragma omp parallel for
+  for(int iter = 0; iter < 200; iter++) {
+    //Create a new Camera
+    theta = iter * math.PI / 100.f;
+    z = 50*cos(theta);
+    x = 50*sin(theta);
+    camera = new Camera(Point(x,0,z),Vector(0,-1*sin(theta),-1*cos(theta)),Vector(0,1,0))
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
@@ -209,8 +216,12 @@ int main(int argc, char* argv[]) {
       }
 	  }
 
-    RenderGlobals::getInstance().setImage(image);
-    image.write("test.png");
+    //RenderGlobals::getInstance().setImage(image);
+    if(iter < 10) image.write("images/ahoover8.000" + std::to_string(iter) + ".exr");
+    else if(iter < 100) image.write("images/ahoover8.00" + std::to_string(iter) + ".exr");
+    else if(iter < 1000) image.write("images/ahoover8.0" + std::to_string(iter) + ".exr");
+    else image.write("images/ahoover8." + std::to_string(iter) + ".exr");
+  }
 
 
     // start up the glut utilities
