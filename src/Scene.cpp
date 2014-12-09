@@ -9,7 +9,7 @@ namespace gssmraytracer {
     class Scene::Impl {
     public:
       Impl() : primitives(), lights(), bvh(), max_bounce_count(0) {}
-      std::vector<std::shared_ptr<geometry::Primitive> > primitives;
+      std::vector<std::shared_ptr<geometry::Primitive>> primitives;
       std::vector<std::shared_ptr<lights::Light>> lights;
       std::shared_ptr<BVHAccel> bvh;
       int max_bounce_count;

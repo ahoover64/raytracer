@@ -28,6 +28,7 @@
 #include <gssmraytracer/math/Vector.h>
 
 #include <iostream>
+#include <sstream>
 #include <memory>
 #ifdef __OPENMP
   #include <omp.h>
@@ -151,6 +152,7 @@ int main(int argc, char* argv[]) {
     transform5.translate(position5);
 
     Scene &scene = Scene::getInstance();
+    scene.init();
 
     int MAX_BOUNCE = 5;
 
@@ -165,14 +167,14 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Sphere> sphere4(new Sphere(transform4, 2.5f));
 
     std::shared_ptr<Shader> shader5(new CheckeredShader(Color(0.f,0.f,0.f,1.f), Color(1.f,1.f,1.f,1.f), 60.f));
-    std::shared_ptr<Plane> plane(new Plane(transform5, Vector(0.5f,0.f,.5f), Vector(.5f,0.f,-.5f)));
+    //std::shared_ptr<Plane> plane(new Plane(transform5, Vector(0.5f,0.f,.5f), Vector(.5f,0.f,-.5f)));
 
     //Make the prmatives
     std::shared_ptr<Primitive> prim1(new Primitive(sphere, shader));
     std::shared_ptr<Primitive> prim2(new Primitive(sphere2, shader2));
     std::shared_ptr<Primitive> prim3(new Primitive(sphere3, shader3));
     std::shared_ptr<Primitive> prim4(new Primitive(sphere4, shader4));
-    std::shared_ptr<Primitive> prim5(new Primitive(plane, shader5));
+    //std::shared_ptr<Primitive> prim5(new Primitive(plane, shader5));
 
 
     scene.addPrimitive(prim1);
@@ -182,17 +184,17 @@ int main(int argc, char* argv[]) {
     //scene.addPrimitive(prim5);
     scene.addLight(light);
 
-    const int samp_size = 64; // SET NUMBER OF SAMPLES PER PIXEL
+    const int samp_size = 1; // SET NUMBER OF SAMPLES PER PIXEL
     float x, z, theta;
 
     //omp_set_num_threads(4);
   #pragma omp parallel for
   for(int iter = 0; iter < 200; iter++) {
     //Create a new Camera
-    theta = iter * math.PI / 100.f;
+    theta = iter * 3.14159265358979 / 100.f;
     z = 50*cos(theta);
     x = 50*sin(theta);
-    camera = new Camera(Point(x,0,z),Vector(0,-1*sin(theta),-1*cos(theta)),Vector(0,1,0))
+    camera = Camera(Point(x,0,z),Vector(0,-1*sin(theta),-1*cos(theta)),Vector(0,1,0));
     for(int r = 0; r < image.getHeight(); ++r) {
 	    for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
@@ -217,10 +219,13 @@ int main(int argc, char* argv[]) {
 	  }
 
     //RenderGlobals::getInstance().setImage(image);
-    if(iter < 10) image.write("images/ahoover8.000" + std::to_string(iter) + ".exr");
-    else if(iter < 100) image.write("images/ahoover8.00" + std::to_string(iter) + ".exr");
-    else if(iter < 1000) image.write("images/ahoover8.0" + std::to_string(iter) + ".exr");
-    else image.write("images/ahoover8." + std::to_string(iter) + ".exr");
+    std::stringstream ss;
+    if(iter < 10) {ss << "images/ahoover15.000" << iter << ".exr";}
+    else if(iter < 100) {ss << "images/ahoover15.00" << iter << ".exr";}
+    else if(iter < 1000) {ss << "images/ahoover15.0" << iter << ".exr";}
+    else {ss << "images/ahoover15." << iter << ".exr";}
+    image.write(ss.str().c_str());
+    std::cout << ss.str().c_str() << " " << " Done" << std::endl;
   }
 
 

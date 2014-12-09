@@ -52,7 +52,7 @@ namespace gssmraytracer {
                           mImpl->phiMax = Radians(360.0f);
                           mImpl->w2o = worldToObjectSpace();
                           mImpl->o2w = objectToWorldSpace();
-                          mImpl->bb = BoundingBox(Point(-1*mImpl->radius, -1*mImpl->radius, -1*mImpl->radius),
+                          mImpl->bb = BBox(Point(-1*mImpl->radius, -1*mImpl->radius, -1*mImpl->radius),
                                       Point(mImpl->radius, mImpl->radius, mImpl->radius));
                         }
 
@@ -66,7 +66,7 @@ namespace gssmraytracer {
                    mImpl->phiMax = Radians(Clamp(pm, 0.0f, 360.0f));
                    mImpl->w2o = worldToObjectSpace();
                    mImpl->o2w = objectToWorldSpace();
-                   mImpl->bb = BoundingBox(Point(-1*mImpl->radius, -1*mImpl->radius, -1*mImpl->radius),
+                   mImpl->bb = BBox(Point(-1*mImpl->radius, -1*mImpl->radius, -1*mImpl->radius),
                                Point(mImpl->radius, mImpl->radius, mImpl->radius));
 
     }
@@ -77,7 +77,7 @@ namespace gssmraytracer {
       float phi;
       Point phit;
 
-      if(!mImpl->bb.hit(ws_ray))
+      if(!mImpl->bb.intersect(ws_ray))
         return false;
 
       // Transform the ray into object space
@@ -261,12 +261,12 @@ namespace gssmraytracer {
     }
 
 
-    const geometry::BBox worldBB() const {
-      return geometry::BBox();
+    const geometry::BBox Sphere::worldBB() const {
+      return mImpl->bb;
     }
 
-    const geometry::BBox objectBB() const {
-      return mImpl->bb;
+    const geometry::BBox Sphere::objectBB() const {
+      return geometry::BBox();
     }
 
   }

@@ -33,6 +33,12 @@ namespace gssmraytracer {
       //! Returns a new Point which is the sum of a Vector and this point
       Point operator+(const math::Vector &vec) const;
 
+      //! Returns a new Point which is the sum of a Vector and this point
+      Point operator+(const Point &pt) const;
+
+      //! Returns a Vector
+      math::Vector operator-(const geometry::Point &pt) const;
+
       //! Return a new scaled point
       Point operator*(const float s) const;
 

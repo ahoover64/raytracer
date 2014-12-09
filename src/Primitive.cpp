@@ -31,7 +31,7 @@ namespace gssmraytracer {
       return mImpl->shader->shade(*dg, bounce_num);
     }
 
-    const BBox worldBound() const {
+    const BBox Primitive::worldBound() const {
       return mImpl->shape->worldBB();
     }
   }

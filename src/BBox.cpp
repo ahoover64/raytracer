@@ -16,7 +16,10 @@ namespace gssmraytracer {
       Point pMin;
       Point pMax;
     };
-    BBox::BBox() : mImpl(new Impl){}
+    BBox::BBox() : mImpl(new Impl){
+      mImpl->pMin = Point(0,0,0);
+      mImpl->pMax = Point(0,0,0);
+    }
 
     BBox::BBox(const Point &p) : mImpl(new Impl) {
       mImpl->pMin = p;
@@ -31,8 +34,8 @@ namespace gssmraytracer {
       mImpl->pMax = Point(std::max(p1.x(), p2.x()), std::max(p1.y(), p2.y()), std::max(p1.z(), p2.z()));
     }
     const Point BBox::centroid() const {
-      return (mImpl->pMin + mImpl->pMax)*0.5;
-
+      return Point(0,0,0);
+      //return (mImpl->pMin + mImpl->pMax)*0.5;
     }
     const int BBox::maximumExtent() const {
       math::Vector diag = mImpl->pMax - mImpl->pMin;
