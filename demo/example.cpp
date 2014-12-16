@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
   Camera camera(Point(0,0,50),Vector(0,0,-1),Vector(0,1,0));
   camera.setAspectRatio((float) width / height);
 
-  std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 100.f, Point(0, 20, 15)));
+  std::shared_ptr<Light> light(new PointLight(Color(1, 1, 1, 0), 10.f, Point(0, 20, 15)));
   //std::shared_ptr<Light> light(new DirectionLight(Color(1, 1, 1, 0), 5.f, pl, vec));
 
   Transform transform1, transform2, transform3, transform4, transform5;
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
   Vector position(-10.0,0.0,5.0);
   Vector position2(10.,2.5,5.0);
   Vector position3(0.f,7.5,-5.f);
-  Vector position4(0.0,-2.5,0.0);
+  Vector position4(0.0,-3.5,0.0);
   Vector position5(0.f,-12.5,0.f);
 
   transform1.translate(position);
@@ -152,7 +152,6 @@ int main(int argc, char* argv[]) {
   transform5.translate(position5);
 
   Scene &scene = Scene::getInstance();
-  scene.init();
 
   int MAX_BOUNCE = 5;
 
@@ -189,12 +188,12 @@ int main(int argc, char* argv[]) {
 
   //omp_set_num_threads(4);
   #pragma omp parallel for
-  for(int iter = 0; iter < 200; iter++) {
+  for(int iter = 25; iter < 200; iter += 50) {
     //Create a new Camera
     theta = iter * 3.14159265358979 / 100.f;
     z = 50*cos(theta);
     x = 50*sin(theta);
-    camera = Camera(Point(x,0,z),Vector(0,-1*sin(theta),-1*cos(theta)),Vector(0,1,0));
+    camera = Camera(Point(x,0,z),Vector(-1*sin(theta),0,-1*cos(theta)),Vector(0,1,0));
     for(int r = 0; r < image.getHeight(); ++r) {
       for(int c = 0; c < image.getWidth(); ++c) {
         Color color(0,0,0,1);
@@ -218,7 +217,7 @@ int main(int argc, char* argv[]) {
       }
     }
 
-    //RenderGlobals::getInstance().setImage(image);
+    RenderGlobals::getInstance().setImage(image);
     std::stringstream ss;
     if(iter < 10) {ss << "images/ahoover15.000" << iter << ".exr";}
       else if(iter < 100) {ss << "images/ahoover15.00" << iter << ".exr";}
